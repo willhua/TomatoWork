@@ -2,6 +2,8 @@ package com.willhua.tomatowork.ui.activity;
 
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
+import android.view.LayoutInflater;
+import android.view.ViewGroup;
 
 import com.willhua.tomatowork.R;
 
@@ -19,7 +21,9 @@ public class MainActivity extends BaseActivity {
         setContentView(R.layout.main_activity);
 
         initToolbar();
-
+        ViewGroup container = (ViewGroup)findViewById(R.id.main_container);
+        LayoutInflater inflater = getLayoutInflater();
+        inflater.inflate(R.layout.main_list, container);
 
 
 
@@ -27,10 +31,6 @@ public class MainActivity extends BaseActivity {
 
     private void initToolbar(){
         mToolbar = (Toolbar)findViewById(R.id.toolbar);
-        mToolbar.setLogo(R.mipmap.ic_launcher);
-        mToolbar.setTitle("Title");
-        mToolbar.setSubtitle("SubTitle");
-
         mToolbar.inflateMenu(R.menu.menu_main);
     }
 

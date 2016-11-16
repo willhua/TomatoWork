@@ -29,4 +29,46 @@
         android:layout_height="match_parent">
 
     </FrameLayout>
+    
+    <LinearLayout
+        android:id="@+id/bottom"
+        android:orientation="horizontal"
+        android:gravity="center_vertical"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/bottom_height"
+        android:layout_alignParentBottom="true">
+
+        <TextView
+            android:id="@+id/list"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="List"
+            android:textSize="@dimen/bottom_menu_size"/>
+
+        <TextView
+            android:id="@+id/statistics"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="2"
+            android:text="Statistics"
+            android:textSize="@dimen/bottom_menu_size"/>
+
+        <Button
+            android:id="@+id/play"
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/bottom_height"
+            android:layout_weight="2"
+            android:scaleType="centerInside"
+            android:background="@drawable/play"/>
+
+        <TextView
+            android:id="@+id/user"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="User"
+            android:textSize="@dimen/bottom_menu_size"/>
+
+    </LinearLayout>
 </RelativeLayout>
