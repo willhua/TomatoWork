@@ -1,7 +1,7 @@
 package com.willhua.tomatowork.modle.entity;
 
 /**
- * Created by lisan on 2016/11/13.
+ * Created by willhua on 2016/11/13.
  */
 
 public class Tomato {
