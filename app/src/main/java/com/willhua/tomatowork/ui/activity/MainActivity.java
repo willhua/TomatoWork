@@ -6,6 +6,7 @@ import android.view.LayoutInflater;
 import android.view.ViewGroup;
 
 import com.willhua.tomatowork.R;
+import com.willhua.tomatowork.presenter.MainPresenter;
 
 /**
  * Created by willhua on 2016/11/13.
@@ -14,6 +15,7 @@ import com.willhua.tomatowork.R;
 public class MainActivity extends BaseActivity {
 
     private Toolbar mToolbar;
+    private MainPresenter mMainPresenter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState){
