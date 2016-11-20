@@ -18,9 +18,9 @@ public class TabFragment extends Fragment {
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup contianer, Bundle savedInstanceState){
-        super.onCreateView(inflater, contianer, savedInstanceState);
-        View view = inflater.inflate(R.layout.tab_layout, contianer);
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState){
+        super.onCreateView(inflater, container, savedInstanceState);
+        View view = inflater.inflate(R.layout.tab_layout, null);
         return  view;
     }
 

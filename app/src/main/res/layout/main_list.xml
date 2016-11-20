@@ -12,7 +12,7 @@
     </ListView>
 
     <View
-        android:background="@color/colorBasic"
+        android:background="@color/colorWhite"
         android:layout_width="match_parent"
         android:layout_height="20dp" />
 

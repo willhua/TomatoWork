@@ -7,12 +7,13 @@ import android.support.v7.widget.Toolbar;
 import com.willhua.tomatowork.R;
 import com.willhua.tomatowork.presenter.MainPresenter;
 import com.willhua.tomatowork.ui.adapter.FunctionPagerAdapter;
+import com.willhua.tomatowork.ui.fragment.TabFragment;
 
 /**
  * Created by willhua on 2016/11/13.
  */
 
-public class MainActivity extends BaseActivity {
+public class MainActivity extends BaseActivity implements TabFragment.TabSelected{
 
     private Toolbar mToolbar;
     private MainPresenter mMainPresenter;
@@ -33,4 +34,8 @@ public class MainActivity extends BaseActivity {
         mToolbar.inflateMenu(R.menu.menu_main);
     }
 
+    @Override
+    public void onTabSelected(int index) {
+
+    }
 }
