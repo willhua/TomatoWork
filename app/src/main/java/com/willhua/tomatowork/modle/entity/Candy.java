@@ -13,7 +13,8 @@ public class Candy extends BasicSeed{
     private int mCurrentTomato;
 
 
-    public Candy(){
+    public Candy(String describe){
+        mDescribe = describe;
         mID = System.currentTimeMillis();
     }
 }

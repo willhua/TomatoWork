@@ -18,7 +18,7 @@ import java.util.List;
 public class CandyAdapter extends BaseAdapter {
     private List<Candy> mCandyList;
 
-    private CandyAdapter(List<Candy> tomatos){
+    public CandyAdapter(List<Candy> tomatos){
         mCandyList = tomatos;
     }
 
