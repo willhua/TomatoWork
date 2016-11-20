@@ -1,7 +1,7 @@
 package com.willhua.tomatowork.ui.activity;
 
-import android.app.Activity;
 import android.os.Bundle;
+import android.support.v4.app.FragmentActivity;
 
 import com.willhua.tomatowork.utils.LogUtil;
 
@@ -9,7 +9,7 @@ import com.willhua.tomatowork.utils.LogUtil;
  * Created by willhua on 2016/11/13.
  */
 
-public class BaseActivity extends Activity {
+public class BaseActivity extends FragmentActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState){
