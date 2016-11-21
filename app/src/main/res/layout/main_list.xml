@@ -3,6 +3,16 @@
               android:layout_width="match_parent"
               android:layout_height="match_parent"
                 android:orientation="vertical">
+
+    <EditText
+        android:id="@+id/new_candy"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/candy_height"/>
+
+    <Space
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/space_below_new_candy"/>
+
     <ListView
         android:id="@+id/task_list"
         android:layout_weight="1"
