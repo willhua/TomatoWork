@@ -32,7 +32,7 @@ public class MainFragment extends Fragment {
         super.onCreateView(inflater, container, savedInstanceState);
         View view = inflater.inflate(R.layout.main_list, null);
         mCandyListView = (ListView)view.findViewById(R.id.task_list);
-        mCandyListView.setAdapter(new CandyAdapter(mCandyPresenter.getCandies()));
+        mCandyListView.setAdapter(new CandyAdapter(mCandyPresenter.getCandies(), getContext()));
         return view;
     }
 }

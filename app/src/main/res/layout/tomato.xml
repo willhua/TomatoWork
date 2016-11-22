@@ -2,11 +2,13 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
               android:orientation="horizontal"
               android:layout_width="match_parent"
-              android:layout_height="match_parent">
+              android:layout_height="wrap_content">
     <TextView
         android:id="@+id/tomato_tv"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:textSize="@dimen/tomato_text_size"/>
+        android:layout_height="@dimen/candy_item_height"
+        android:drawableLeft="@drawable/done"
+        android:textSize="@dimen/tomato_text_size"
+        android:drawableRight="@drawable/pin"/>
 
 </LinearLayout>

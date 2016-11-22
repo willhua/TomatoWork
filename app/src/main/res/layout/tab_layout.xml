@@ -3,6 +3,7 @@
               android:layout_width="match_parent"
               android:layout_height="@dimen/bottom_height"
               android:orientation="horizontal"
+              android:gravity="center_vertical"
     android:background="@color/colorTab">
 
         <TextView
@@ -21,7 +22,7 @@
             android:text="Statistics"
             android:textSize="@dimen/bottom_menu_size"/>
 
-        <Button
+        <ImageView
             android:id="@+id/play"
             android:layout_width="wrap_content"
             android:layout_height="@dimen/bottom_height"

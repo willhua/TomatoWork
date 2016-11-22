@@ -2,4 +2,5 @@
     <string name="app_name">TomatoWork</string>
     <string name="toolbar_text">Tomato</string>
     <string name="task_list">TaskList</string>
+    <string name="create_new_candy">Create new Candy</string>
 </resources>

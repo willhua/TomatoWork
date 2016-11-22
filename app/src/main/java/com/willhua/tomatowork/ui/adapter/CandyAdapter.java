@@ -1,5 +1,7 @@
 package com.willhua.tomatowork.ui.adapter;
 
+import android.content.Context;
+import android.graphics.drawable.Drawable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,11 +18,20 @@ import java.util.List;
  */
 
 public class CandyAdapter extends BaseAdapter {
+    private int mDrawableSize;
+    private Drawable mLeftDrawable;
+    private Drawable mRightDrawable;
     private List<Candy> mCandyList;
 
-    public CandyAdapter(List<Candy> tomatos){
+    public CandyAdapter(List<Candy> tomatos, Context context){
         mCandyList = tomatos;
+        mDrawableSize = (int)context.getResources().getDimension(R.dimen.candy_item_height);
+        mLeftDrawable = context.getResources().getDrawable(R.drawable.done);
+        mLeftDrawable.setBounds(0, 0, mDrawableSize, mDrawableSize);
+        mRightDrawable = context.getResources().getDrawable(R.drawable.pin);
+        mRightDrawable.setBounds(0, 0, mDrawableSize, mDrawableSize);
     }
+
 
     @Override
     public int getCount() {
@@ -46,6 +57,7 @@ public class CandyAdapter extends BaseAdapter {
             LayoutInflater inflater = LayoutInflater.from(parent.getContext());
             convertView = inflater.inflate(R.layout.tomato, null);
             tv = (TextView)convertView.findViewById(R.id.tomato_tv);
+            tv.setCompoundDrawables(mLeftDrawable, null, mRightDrawable, null);
             convertView.setTag(tv);
         }
         tv.setText(mCandyList.get(position).getDescribe());
