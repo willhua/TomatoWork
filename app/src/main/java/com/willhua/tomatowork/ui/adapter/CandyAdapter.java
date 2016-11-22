@@ -19,6 +19,7 @@ import java.util.List;
 
 public class CandyAdapter extends BaseAdapter {
     private int mDrawableSize;
+    private int mDrawablePadding;
     private Drawable mLeftDrawable;
     private Drawable mRightDrawable;
     private List<Candy> mCandyList;
@@ -26,6 +27,7 @@ public class CandyAdapter extends BaseAdapter {
     public CandyAdapter(List<Candy> tomatos, Context context){
         mCandyList = tomatos;
         mDrawableSize = (int)context.getResources().getDimension(R.dimen.candy_item_height);
+        mDrawablePadding = (int)context.getResources().getDimension(R.dimen.candy_item_drawable_padding);
         mLeftDrawable = context.getResources().getDrawable(R.drawable.done);
         mLeftDrawable.setBounds(0, 0, mDrawableSize, mDrawableSize);
         mRightDrawable = context.getResources().getDrawable(R.drawable.pin);
@@ -58,6 +60,7 @@ public class CandyAdapter extends BaseAdapter {
             convertView = inflater.inflate(R.layout.tomato, null);
             tv = (TextView)convertView.findViewById(R.id.tomato_tv);
             tv.setCompoundDrawables(mLeftDrawable, null, mRightDrawable, null);
+            tv.setCompoundDrawablePadding(mDrawablePadding);
             convertView.setTag(tv);
         }
         tv.setText(mCandyList.get(position).getDescribe());

@@ -7,8 +7,11 @@
         android:id="@+id/tomato_tv"
         android:layout_width="match_parent"
         android:layout_height="@dimen/candy_item_height"
+        android:drawablePadding="@dimen/candy_item_drawable_padding"
+        android:paddingLeft="@dimen/candy_item_padding"
+        android:paddingRight="@dimen/candy_item_padding"
         android:drawableLeft="@drawable/done"
-        android:textSize="@dimen/tomato_text_size"
+        android:textSize="@dimen/candy_item_text_size"
         android:drawableRight="@drawable/pin"/>
 
 </LinearLayout>
