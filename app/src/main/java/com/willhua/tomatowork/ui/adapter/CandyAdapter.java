@@ -1,15 +1,20 @@
 package com.willhua.tomatowork.ui.adapter;
 
-import android.content.Context;
+import android.content.res.Resources;
 import android.graphics.drawable.Drawable;
+import android.support.annotation.NonNull;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.TextView;
 
 import com.willhua.tomatowork.R;
 import com.willhua.tomatowork.modle.entity.Candy;
+import com.willhua.tomatowork.utils.LogUtil;
+import com.willhua.tomatowork.utils.SizedDrawable;
 
 import java.util.List;
 
@@ -18,20 +23,34 @@ import java.util.List;
  */
 
 public class CandyAdapter extends BaseAdapter {
-    private int mDrawableSize;
-    private int mDrawablePadding;
-    private Drawable mLeftDrawable;
-    private Drawable mRightDrawable;
-    private List<Candy> mCandyList;
+    public interface CandyClick{
+        void onDone(int position, boolean checked);
+        void onStick(int position, boolean checked);
+    }
 
-    public CandyAdapter(List<Candy> tomatos, Context context){
+    private final String FILTER = "CandyAdapter";
+    private List<Candy> mCandyList;
+    private CandyClick mCandyClick;
+    private int mDrawableSize;
+    private SizedDrawable mDoneChecked;
+    private SizedDrawable mDoneNotChecked;
+    private SizedDrawable mStickChecked;
+    private SizedDrawable mStickNotChecked;
+
+    public CandyAdapter(@NonNull List<Candy> tomatos, @NonNull CandyClick candyClick, final Resources res){
+        long t = System.currentTimeMillis();
         mCandyList = tomatos;
-        mDrawableSize = (int)context.getResources().getDimension(R.dimen.candy_item_height);
-        mDrawablePadding = (int)context.getResources().getDimension(R.dimen.candy_item_drawable_padding);
-        mLeftDrawable = context.getResources().getDrawable(R.drawable.done);
-        mLeftDrawable.setBounds(0, 0, mDrawableSize, mDrawableSize);
-        mRightDrawable = context.getResources().getDrawable(R.drawable.pin);
-        mRightDrawable.setBounds(0, 0, mDrawableSize, mDrawableSize);
+        mCandyClick = candyClick;
+        mDrawableSize = (int)res.getDimension(R.dimen.candy_item_height);
+        Drawable drawable = res.getDrawable(R.drawable.done);
+        mDoneChecked = new SizedDrawable(drawable, mDrawableSize, mDrawableSize);
+        drawable = res.getDrawable(R.drawable.done);
+        mDoneNotChecked = new SizedDrawable(drawable, mDrawableSize, mDrawableSize);
+        drawable = res.getDrawable(R.drawable.pin2);
+        mStickChecked = new SizedDrawable(drawable, mDrawableSize, mDrawableSize);
+        drawable = res.getDrawable(R.drawable.pin);
+        mStickNotChecked = new SizedDrawable(drawable, mDrawableSize, mDrawableSize);
+        LogUtil.d("time ", "time  " + (System.currentTimeMillis() - t));
     }
 
 
@@ -52,22 +71,69 @@ public class CandyAdapter extends BaseAdapter {
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
-        TextView tv = null;
+        ViewHolder vh = null;
         if(convertView != null){
-            tv = (TextView) convertView.getTag();
+            vh = (ViewHolder) convertView.getTag();
         }else{
             LayoutInflater inflater = LayoutInflater.from(parent.getContext());
             convertView = inflater.inflate(R.layout.tomato, null);
-            tv = (TextView)convertView.findViewById(R.id.tomato_tv);
-            tv.setCompoundDrawables(mLeftDrawable, null, mRightDrawable, null);
-            tv.setCompoundDrawablePadding(mDrawablePadding);
-            convertView.setTag(tv);
+            vh = new ViewHolder();
+            vh.mTextView = (TextView) convertView.findViewById(R.id.tomato_tv);
+            vh.mDone = (CheckBox) convertView.findViewById(R.id.done);
+            vh.mStick = (CheckBox) convertView.findViewById(R.id.stick);
+            convertView.setTag(vh);
         }
-        tv.setText(mCandyList.get(position).getDescribe());
+        vh.mPosition = position;
+        vh.mTextView.setText(mCandyList.get(position).getDescribe());
+        vh.setClick();
         return convertView;
     }
 
-    private class ViewHolder{
+    private class ViewHolder {
+        int mPosition;
         TextView mTextView;
+        CheckBox mDone;
+        CheckBox mStick;
+
+        void setClick(){
+            if(mDone.isChecked()){
+                mDone.setButtonDrawable(mDoneChecked);
+            }else{
+                mDone.setButtonDrawable(mDoneNotChecked);
+            }
+            if(mStick.isChecked()){
+                mStick.setButtonDrawable(mStickChecked);
+            }else{
+                mStick.setButtonDrawable(mStickNotChecked);
+            }
+            mDone.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+                @Override
+                public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                    if(mDone.isChecked()){
+                        mDone.setButtonDrawable(mDoneChecked);
+                    }else{
+                        mDone.setButtonDrawable(mDoneNotChecked);
+                    }
+                    LogUtil.d(FILTER, "ondone " + isChecked);
+                    if(mCandyClick != null){
+                        mCandyClick.onDone(mPosition, isChecked);
+                    }
+                }
+            });
+            mStick.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+                @Override
+                public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                    if(mStick.isChecked()){
+                        mStick.setButtonDrawable(mStickChecked);
+                    }else{
+                        mStick.setButtonDrawable(mStickNotChecked);
+                    }
+                    LogUtil.d(FILTER, "onstick " + isChecked);
+                    if(mCandyClick != null){
+                        mCandyClick.onStick(mPosition, isChecked);
+                    }
+                }
+            });
+        }
     }
 }
