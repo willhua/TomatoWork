@@ -15,8 +15,9 @@
         android:layout_width="match_parent"
         android:layout_height="@dimen/candy_item_height"
         android:layout_toRightOf="@id/done"
+        android:gravity="center_vertical"
         android:paddingLeft="@dimen/candy_item_padding"
-        android:textSize="@dimen/candy_item_text_size" />
+        android:textSize="@dimen/textsize_small" />
 
     <CheckBox
         android:id="@+id/stick"

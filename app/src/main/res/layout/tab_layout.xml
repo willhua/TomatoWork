@@ -4,37 +4,40 @@
               android:layout_height="@dimen/bottom_height"
               android:orientation="horizontal"
               android:gravity="center_vertical"
-    android:background="@color/colorTab">
+    android:background="@color/color500">
 
         <TextView
             android:id="@+id/list"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:layout_weight="1"
-            android:text="List"
-            android:textSize="@dimen/bottom_menu_size"/>
+            android:gravity="center"
+            android:text="@string/tab_list"
+            android:textSize="@dimen/textsize_large"/>
 
         <TextView
             android:id="@+id/statistics"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="2"
-            android:text="Statistics"
-            android:textSize="@dimen/bottom_menu_size"/>
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:text="@string/tab_statisticd"
+            android:textSize="@dimen/textsize_large"/>
 
         <ImageView
             android:id="@+id/play"
             android:layout_width="wrap_content"
-            android:layout_height="@dimen/bottom_height"
-            android:layout_weight="2"
-            android:scaleType="centerInside"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:scaleType="center"
             android:background="@drawable/play"/>
 
         <TextView
             android:id="@+id/user"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:layout_weight="1"
-            android:text="User"
-            android:textSize="@dimen/bottom_menu_size"/>
+            android:gravity="center"
+            android:text="@string/tab_user"
+            android:textSize="@dimen/textsize_large"/>
 </LinearLayout>

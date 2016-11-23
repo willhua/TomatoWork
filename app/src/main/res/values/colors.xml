@@ -3,8 +3,11 @@
     <color name="colorPrimary">#3F51B5</color>
     <color name="colorPrimaryDark">#303F9F</color>
     <color name="colorAccent">#FF4081</color>
-    <color name="colorBasic">#02c4ff</color>
+    <color name="colorBasic">#90CAF9</color>
     <color name="colorWhite">#FFFFFF</color>
     <color name="colorTab">#021ff7</color>
     <color name="colorTomatoText">#021ff7</color>
+    <color name="color500">#2196F3</color>
+    <color name="color200">#90CAF9</color>
+    <color name="color300">#64B5F6</color>
 </resources>
