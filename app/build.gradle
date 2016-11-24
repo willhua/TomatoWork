@@ -1,4 +1,5 @@
 apply plugin: 'com.android.application'
+apply plugin: 'com.neenbedankt.android-apt'
 
 android {
     compileSdkVersion 23
@@ -27,4 +28,6 @@ dependencies {
     compile 'com.android.support:appcompat-v7:23.3.0'
     testCompile 'junit:junit:4.12'
     compile files('libs/android-support-v7-recyclerview.jar')
+    compile 'com.jakewharton:butterknife:8.1.0'
+    apt 'com.jakewharton:butterknife-compiler:8.1.0'
 }
