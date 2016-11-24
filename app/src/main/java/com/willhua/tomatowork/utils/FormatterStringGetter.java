@@ -12,21 +12,24 @@ public class FormatterStringGetter {
     private static StringBuilder mStringBuilder = new StringBuilder();
     private FormatterStringGetter(){}
 
+    /**
+     *
+     * @param time the unit is second
+     * @return
+     */
     public static String getTomatoTime(int time){
         mStringBuilder.delete(0, mStringBuilder.length());
         int minute = time / 60;
         int seconds = time % 60;
         if(minute < 10){
-            mStringBuilder.append(0).append(minute);
-        }else{
-            mStringBuilder.append(minute);
+            mStringBuilder.append(0);
         }
+        mStringBuilder.append(minute);
         mStringBuilder.append(":");
         if(seconds < 10){
-            mStringBuilder.append(0).append(seconds);
-        }else{
-            mStringBuilder.append(seconds);
+            mStringBuilder.append(0);
         }
+        mStringBuilder.append(seconds);
         return mStringBuilder.toString();
     }
 }
