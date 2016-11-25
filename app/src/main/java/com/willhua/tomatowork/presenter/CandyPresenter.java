@@ -22,4 +22,8 @@ public class CandyPresenter {
         candies.add(new Candy("Five"));
         return  candies;
     }
+
+    private void addTomato(Candy candy){
+
+    }
 }
