@@ -84,7 +84,7 @@ public class CandyAdapter extends BaseAdapter {
             convertView.setTag(vh);
         }
         vh.mPosition = position;
-        vh.mTextView.setText(mCandyList.get(position).getDescribe());
+        vh.mTextView.setText(mCandyList.get(position).getTitle());
         vh.setClick();
         return convertView;
     }

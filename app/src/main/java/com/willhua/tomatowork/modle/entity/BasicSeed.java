@@ -6,7 +6,7 @@ package com.willhua.tomatowork.modle.entity;
 
 public abstract class BasicSeed {
     protected int mType;
-    protected String mDescribe;
+    protected String mTitle;
     protected int mPriority;
 
     public int getPriority() {
@@ -25,11 +25,11 @@ public abstract class BasicSeed {
         mType = type;
     }
 
-    public String getDescribe() {
-        return mDescribe;
+    public String getTitle() {
+        return mTitle;
     }
 
-    public void setDescribe(String describe) {
-        mDescribe = describe;
+    public void setTitle(String title) {
+        mTitle = title;
     }
 }
