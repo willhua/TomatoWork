@@ -2,6 +2,7 @@ package com.willhua.tomatowork.modle.dao;
 
 import android.content.ContentValues;
 import android.content.Context;
+import android.database.Cursor;
 import android.net.Uri;
 import android.support.annotation.NonNull;
 
@@ -15,6 +16,11 @@ import java.util.List;
  */
 
 public class CandyData {
+
+    private final String[] COLUMNS = new String[]{TomatoDbOpenHelper.CandyTable.KEY_ID, TomatoDbOpenHelper.CandyTable.KEY_TITLE,
+            TomatoDbOpenHelper.CandyTable.KEY_DESCRIBE, TomatoDbOpenHelper.CandyTable.KEY_CURRENT_TOM,
+            TomatoDbOpenHelper.CandyTable.KEY_CURRENT_TOM, TomatoDbOpenHelper.CandyTable.KEY_OBJECTIVE_TOM,
+            TomatoDbOpenHelper.CandyTable.KEY_PRIORITY};
 
     private TomatoDbOpenHelper mDbOpenHelper;
 
@@ -48,8 +54,35 @@ public class CandyData {
                 values, TomatoDbOpenHelper.CandyTable.KEY_ID + "=?", new String[]{Long.toString(candy.getID())});
     }
 
+    public void deleteCandy(long id){
+        mDbOpenHelper.getWritableDatabase().delete(TomatoDbOpenHelper.CandyTable.TABLE_NAME,
+                TomatoDbOpenHelper.CandyTable.KEY_ID + "=?", new String[]{Long.toString(id)});
+    }
+
     public List<Candy> getAllUnfinishedCandy(){
+        return queryCnadies(TomatoDbOpenHelper.CandyTable.STATE_UNFINISHED);
+    }
+
+    public List<Candy> getAllFinishedCandy(){
+        return queryCnadies(TomatoDbOpenHelper.CandyTable.STATE_FINISHED);
+    }
+
+    private List<Candy> queryCnadies(String state){
         List candies = new ArrayList();
+        Cursor cursor = mDbOpenHelper.getWritableDatabase().query(TomatoDbOpenHelper.CandyTable.TABLE_NAME, COLUMNS,
+                TomatoDbOpenHelper.CandyTable.KEY_STATE + "=?", new String[]{state},
+                null, null, null);
+        if (cursor != null && cursor.getCount() > 0){
+            while(cursor.moveToNext()){
+                Candy candy = new Candy(cursor.getString(cursor.getColumnIndex(TomatoDbOpenHelper.CandyTable.KEY_DESCRIBE)));
+                candy.setID(cursor.getLong(cursor.getColumnIndex(TomatoDbOpenHelper.CandyTable.KEY_ID)));
+                candy.setObjectiveTomato(cursor.getInt(cursor.getColumnIndex(TomatoDbOpenHelper.CandyTable.KEY_OBJECTIVE_TOM)));
+                candy.setCurrentTomato(cursor.getInt(cursor.getColumnIndex(TomatoDbOpenHelper.CandyTable.KEY_CURRENT_TOM)));
+                candy.setTitle(cursor.getString(cursor.getColumnIndex(TomatoDbOpenHelper.CandyTable.KEY_TITLE)));
+                candy.setPriority(cursor.getInt(cursor.getColumnIndex(TomatoDbOpenHelper.CandyTable.KEY_PRIORITY)));
+                candies.add(candy);
+            }
+        }
         return  candies;
     }
 }
