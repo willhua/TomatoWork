@@ -83,6 +83,9 @@ public class CandyData {
                 candies.add(candy);
             }
         }
+        if(cursor != null){
+            cursor.close();
+        }
         return  candies;
     }
 }
