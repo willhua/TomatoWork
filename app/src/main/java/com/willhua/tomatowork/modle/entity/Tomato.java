@@ -53,7 +53,7 @@ public class Tomato {
     }
 
     /**
-     * set the listener for tomato.
+     * set the listener for candy_item.
      * @param tomatoEvent
      */
     public void setTomatoEvent(TomatoEvent tomatoEvent) {

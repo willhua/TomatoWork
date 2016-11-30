@@ -76,7 +76,7 @@ public class CandyAdapter extends BaseAdapter {
             vh = (ViewHolder) convertView.getTag();
         }else{
             LayoutInflater inflater = LayoutInflater.from(parent.getContext());
-            convertView = inflater.inflate(R.layout.tomato, null);
+            convertView = inflater.inflate(R.layout.candy_item, null);
             vh = new ViewHolder();
             vh.mTextView = (TextView) convertView.findViewById(R.id.tomato_tv);
             vh.mDone = (CheckBox) convertView.findViewById(R.id.done);

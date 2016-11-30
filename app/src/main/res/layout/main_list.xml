@@ -1,24 +1,33 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-              android:layout_width="match_parent"
-              android:layout_height="match_parent"
-                android:orientation="vertical">
 
-    <EditText
-        android:id="@+id/new_candy"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+             android:id="@+id/container"
+             android:layout_width="match_parent"
+             android:layout_height="match_parent">
+
+    <LinearLayout
+        android:id="@+id/show_panel"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:textSize="@dimen/textsize_small"
-        android:hint="@string/create_new_candy"/>
+        android:layout_height="match_parent"
+        android:orientation="vertical">
 
-    <Space
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/space_below_new_candy"/>
+        <EditText
+            android:id="@+id/new_candy"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/create_new_candy"
+            android:paddingLeft="@dimen/main_list_et_left_padding"
+            android:textSize="@dimen/textsize_small"/>
 
-    <ListView
-        android:id="@+id/task_list"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-    </ListView>
+        <Space
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/space_below_new_candy"/>
 
-</LinearLayout>
+        <ListView
+            android:id="@+id/task_list"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+        </ListView>
+    </LinearLayout>
+</FrameLayout>
+

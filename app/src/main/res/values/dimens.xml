@@ -15,4 +15,7 @@
     <dimen name="textsize_small">16sp</dimen>
     <dimen name="textsize_xsmall">14sp</dimen>
 
+    <!-- main_list -->
+    <dimen name="main_list_et_left_padding">30dp</dimen>
+
 </resources>
