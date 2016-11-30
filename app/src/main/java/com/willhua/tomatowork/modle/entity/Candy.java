@@ -9,8 +9,8 @@ public class Candy extends BasicSeed{
     private int mObjectiveTomato;
     private int mCurrentTomato;
 
-    public Candy(String describe){
-        mTitle = describe;
+    public Candy(String title){
+        mTitle = title;
     }
 
     public int getObjectiveTomato() {

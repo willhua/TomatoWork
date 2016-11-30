@@ -1,16 +1,22 @@
 package com.willhua.tomatowork.ui.activity;
 
+import android.inputmethodservice.Keyboard;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
+import android.security.keystore.KeyInfo;
 import android.support.v4.view.ViewPager;
 import android.support.v7.widget.Toolbar;
+import android.view.KeyEvent;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.willhua.tomatowork.R;
+import com.willhua.tomatowork.modle.entity.Candy;
 import com.willhua.tomatowork.modle.entity.Tomato;
+import com.willhua.tomatowork.presenter.CandyPresenter;
 import com.willhua.tomatowork.presenter.MainPresenter;
+import com.willhua.tomatowork.ui.IView;
 import com.willhua.tomatowork.ui.adapter.FunctionPagerAdapter;
 import com.willhua.tomatowork.ui.fragment.TabFragment;
 import com.willhua.tomatowork.utils.FormatterStringGetter;
@@ -22,7 +28,7 @@ import butterknife.ButterKnife;
  * Created by willhua on 2016/11/13.
  */
 
-public class MainActivity extends BaseActivity implements TabFragment.TabSelected {
+public class MainActivity extends BaseActivity implements IView, TabFragment.TabSelected {
 
     private static final int MSG_INVALIDATE_TOMATO_TIME = 101;
 
@@ -31,7 +37,7 @@ public class MainActivity extends BaseActivity implements TabFragment.TabSelecte
     @BindView(R.id.toolbar_text) TextView mTabText;
 
 
-    private MainPresenter mMainPresenter;
+    private CandyPresenter mCandyPresenter;
     private TabFragment mTabFragment;
     private Handler mHandler;
 
@@ -52,6 +58,8 @@ public class MainActivity extends BaseActivity implements TabFragment.TabSelecte
         mHandler = new Handler(mHandlerCallback);
         Tomato.getInstance().setMinutes(mTomatoTime);
         Tomato.getInstance().setTomatoEvent(mTomatoEvent);
+
+        mCandyPresenter = new CandyPresenter(this, getApplicationContext());
     }
 
     private void initView(){
@@ -107,4 +115,12 @@ public class MainActivity extends BaseActivity implements TabFragment.TabSelecte
             return true;
         }
     };
+
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        if(keyCode == KeyEvent.KEYCODE_ENTER){
+            mCandyPresenter.addCandy(new Candy("test1"));
+        }
+        return super.onKeyDown(keyCode, event);
+    }
 }

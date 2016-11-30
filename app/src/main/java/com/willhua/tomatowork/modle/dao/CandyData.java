@@ -4,9 +4,11 @@ import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.net.Uri;
-import android.support.annotation.NonNull;
+import android.util.Log;
 
+import com.willhua.tomatowork.modle.IModleCandy;
 import com.willhua.tomatowork.modle.entity.Candy;
+import com.willhua.tomatowork.utils.LogUtil;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -15,7 +17,8 @@ import java.util.List;
  * Created by willhua on 2016/11/29.
  */
 
-public class CandyData {
+public class CandyData implements IModleCandy{
+    private static final String TAG = "CandyData";
 
     private final String[] COLUMNS = new String[]{TomatoDbOpenHelper.CandyTable.KEY_ID, TomatoDbOpenHelper.CandyTable.KEY_TITLE,
             TomatoDbOpenHelper.CandyTable.KEY_DESCRIBE, TomatoDbOpenHelper.CandyTable.KEY_CURRENT_TOM,
@@ -24,11 +27,12 @@ public class CandyData {
 
     private TomatoDbOpenHelper mDbOpenHelper;
 
-    public CandyData(@NonNull TomatoDbOpenHelper helper) {
+    public CandyData(TomatoDbOpenHelper helper) {
         mDbOpenHelper = helper;
     }
 
-    public void addNewCandy(Candy candy) {
+    public void addCandy(Candy candy) {
+        LogUtil.d(TAG, "addCandy " + candy.getTitle());
         ContentValues values = new ContentValues();
         values.put(TomatoDbOpenHelper.CandyTable.KEY_TITLE, candy.getTitle());
         values.put(TomatoDbOpenHelper.CandyTable.KEY_CURRENT_TOM, 0);

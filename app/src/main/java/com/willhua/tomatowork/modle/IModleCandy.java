@@ -9,9 +9,9 @@ import java.util.List;
  */
 
 public interface IModleCandy {
-    List<Candy> getGrowingCandy();
-    List<Candy> getFinishedCandy();
-    void modifyCandy(Candy candy);
-    void deleteCandy(Candy candy);
+    List<Candy> getAllFinishedCandy();
+    List<Candy> getAllUnfinishedCandy();
+    void updateCandy(Candy candy);
+    void deleteCandy(long id);
     void addCandy(Candy candy);
 }
