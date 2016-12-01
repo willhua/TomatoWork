@@ -18,6 +18,18 @@ public class BaseActivity extends FragmentActivity {
     }
 
     @Override
+    protected void onPause() {
+        super.onPause();
+        LogUtil.d(getClass().getSimpleName(), " onPause");
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        LogUtil.d(getClass().getSimpleName(), " onResume");
+    }
+
+    @Override
     protected void onDestroy(){
         super.onDestroy();
         LogUtil.d(getClass().getSimpleName(), " onDestory");

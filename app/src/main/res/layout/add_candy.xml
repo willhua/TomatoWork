@@ -6,6 +6,7 @@
         android:id="@+id/et_add_candy"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:textSize="@dimen/textsize_small"
         android:paddingLeft="@dimen/main_list_et_left_padding"/>
 
 </FrameLayout>

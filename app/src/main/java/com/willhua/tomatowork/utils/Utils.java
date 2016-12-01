@@ -4,13 +4,15 @@ package com.willhua.tomatowork.utils;
  * Created by willhua on 2016/11/24.
  */
 
+import android.content.Context;
+
 /**
  * this should be used on main thread because of mStringBuilder is not synchronized
  */
-public class FormatterStringGetter {
+public class Utils {
 
     private static StringBuilder mStringBuilder = new StringBuilder();
-    private FormatterStringGetter(){}
+    private Utils(){}
 
     /**
      *
@@ -31,5 +33,14 @@ public class FormatterStringGetter {
         }
         mStringBuilder.append(seconds);
         return mStringBuilder.toString();
+    }
+
+    public static int getStatusBarHeight(Context context){
+        int height = 0;
+        int resID = context.getResources().getIdentifier("status_bar_height", "dimen", "android");
+        if(resID > 0){
+            height = (int)context.getResources().getDimension(resID);
+        }
+        return height;
     }
 }

@@ -10,4 +10,7 @@
     <color name="color500">#2196F3</color>
     <color name="color200">#90CAF9</color>
     <color name="color300">#64B5F6</color>
+
+    <!-- popupWindow -->
+    <color name="pw_bg_100">#55BBDEFB</color>
 </resources>

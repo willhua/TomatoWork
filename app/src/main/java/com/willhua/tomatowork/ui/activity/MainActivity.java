@@ -1,10 +1,8 @@
 package com.willhua.tomatowork.ui.activity;
 
-import android.inputmethodservice.Keyboard;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
-import android.security.keystore.KeyInfo;
 import android.support.v4.view.ViewPager;
 import android.support.v7.widget.Toolbar;
 import android.view.KeyEvent;
@@ -15,11 +13,11 @@ import com.willhua.tomatowork.R;
 import com.willhua.tomatowork.modle.entity.Candy;
 import com.willhua.tomatowork.modle.entity.Tomato;
 import com.willhua.tomatowork.presenter.CandyPresenter;
-import com.willhua.tomatowork.presenter.MainPresenter;
 import com.willhua.tomatowork.ui.IView;
 import com.willhua.tomatowork.ui.adapter.FunctionPagerAdapter;
 import com.willhua.tomatowork.ui.fragment.TabFragment;
-import com.willhua.tomatowork.utils.FormatterStringGetter;
+import com.willhua.tomatowork.utils.Utils;
+import com.willhua.tomatowork.utils.LogUtil;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -30,6 +28,7 @@ import butterknife.ButterKnife;
 
 public class MainActivity extends BaseActivity implements IView, TabFragment.TabSelected {
 
+    private static final String TAG = "MainActivity";
     private static final int MSG_INVALIDATE_TOMATO_TIME = 101;
 
     @BindView(R.id.toolbar) Toolbar mToolbar;
@@ -107,7 +106,7 @@ public class MainActivity extends BaseActivity implements IView, TabFragment.Tab
         public boolean handleMessage(Message msg) {
             switch (msg.what){
                 case MSG_INVALIDATE_TOMATO_TIME:
-                    mTabText.setText(FormatterStringGetter.getTomatoTime(msg.arg1));
+                    mTabText.setText(Utils.getTomatoTime(msg.arg1));
                     break;
                 default:
                     break;
@@ -118,6 +117,7 @@ public class MainActivity extends BaseActivity implements IView, TabFragment.Tab
 
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {
+        LogUtil.d(TAG, "onkeydown");
         if(keyCode == KeyEvent.KEYCODE_ENTER){
             mCandyPresenter.addCandy(new Candy("test1"));
         }
