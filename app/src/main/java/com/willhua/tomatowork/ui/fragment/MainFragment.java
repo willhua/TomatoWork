@@ -5,6 +5,7 @@ import android.content.Context;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.util.DisplayMetrics;
 import android.view.Gravity;
@@ -42,6 +43,7 @@ public class MainFragment extends Fragment implements IView {
     private CandyPresenter mCandyPresenter;
     private ListView mCandyListView;
     @BindView(R.id.new_candy) EditText mNewCandy;
+    @BindView(R.id.fab_start) FloatingActionButton mFabStart;
 
     public MainFragment(){
         super();
@@ -84,6 +86,10 @@ public class MainFragment extends Fragment implements IView {
             }
         });
         pop.showAtLocation(MainFragment.this.getView().getRootView(), Gravity.NO_GRAVITY, 0, 0);
+    }
+
+    @OnClick(R.id.fab_start)
+    public void startTomato(View view){
     }
 
     private CandyAdapter.CandyClick mCandyClick = new CandyAdapter.CandyClick() {

@@ -24,14 +24,6 @@
             android:text="@string/tab_statisticd"
             android:textSize="@dimen/textsize_large"/>
 
-        <ImageView
-            android:id="@+id/start"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:scaleType="center"
-            android:background="@drawable/play"/>
-
         <TextView
             android:id="@+id/user"
             android:layout_width="wrap_content"

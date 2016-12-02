@@ -59,15 +59,6 @@ public class TabFragment extends Fragment {
                 }
             }
         });
-        view = root.findViewById(R.id.start);
-        view.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if(mTabSelected != null){
-                    mTabSelected.onStartTomato();
-                }
-            }
-        });
         view = root.findViewById(R.id.user);
         view.setOnClickListener(new View.OnClickListener() {
             @Override

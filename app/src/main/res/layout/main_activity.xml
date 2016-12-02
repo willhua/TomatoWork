@@ -20,21 +20,20 @@
 
     </android.support.v7.widget.Toolbar>
 
-    <android.support.v4.view.ViewPager
-        android:id="@+id/viewpager"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="@color/color200"
-        android:layout_below="@id/toolbar">
-
-    </android.support.v4.view.ViewPager>
-
-
     <fragment class="com.willhua.tomatowork.ui.fragment.TabFragment"
               android:id="@+id/tabfragment"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true">
     </fragment>
+
+    <android.support.v4.view.ViewPager
+        android:id="@+id/viewpager"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/color200"
+        android:layout_below="@id/toolbar"
+        android:layout_above="@id/tabfragment">
+    </android.support.v4.view.ViewPager>
 
 </RelativeLayout>

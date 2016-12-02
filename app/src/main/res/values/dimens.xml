@@ -17,5 +17,6 @@
 
     <!-- main_list -->
     <dimen name="main_list_et_left_padding">30dp</dimen>
+    <dimen name="main_list_fab_margin">16dp</dimen>
 
 </resources>
