@@ -35,8 +35,6 @@ public class MainActivity extends BaseActivity implements IView, TabFragment.Tab
     @BindView(R.id.viewpager) ViewPager mViewPager;
     @BindView(R.id.toolbar_text) TextView mTabText;
 
-
-    private CandyPresenter mCandyPresenter;
     private TabFragment mTabFragment;
     private Handler mHandler;
 
@@ -57,8 +55,6 @@ public class MainActivity extends BaseActivity implements IView, TabFragment.Tab
         mHandler = new Handler(mHandlerCallback);
         Tomato.getInstance().setMinutes(mTomatoTime);
         Tomato.getInstance().setTomatoEvent(mTomatoEvent);
-
-        mCandyPresenter = new CandyPresenter(this, getApplicationContext());
     }
 
     private void initView(){
@@ -115,12 +111,4 @@ public class MainActivity extends BaseActivity implements IView, TabFragment.Tab
         }
     };
 
-    @Override
-    public boolean onKeyDown(int keyCode, KeyEvent event) {
-        LogUtil.d(TAG, "onkeydown");
-        if(keyCode == KeyEvent.KEYCODE_ENTER){
-            mCandyPresenter.addCandy(new Candy("test1"));
-        }
-        return super.onKeyDown(keyCode, event);
-    }
 }

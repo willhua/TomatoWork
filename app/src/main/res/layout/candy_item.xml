@@ -1,29 +1,30 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-                xmlns:app="http://schemas.android.com/apk/res-auto"
                 android:layout_width="match_parent"
               android:layout_height="wrap_content"
     android:gravity="center_vertical">
     <CheckBox
-        android:id="@+id/done"
+        android:id="@+id/cb_done"
         android:layout_alignParentLeft="true"
-        android:layout_width="@dimen/candy_item_height"
+        android:layout_width="@dimen/candy_item_drawable_width"
+        android:layout_marginLeft="@dimen/candy_item_drawable_padding"
         android:layout_height="@dimen/candy_item_height"/>
 
-    <TextView
-        android:id="@+id/tomato_tv"
+    <android.widget.TextView
+        android:id="@+id/tv_tomato_title"
         android:layout_width="match_parent"
         android:layout_height="@dimen/candy_item_height"
-        android:layout_toRightOf="@id/done"
+        android:layout_toRightOf="@id/cb_done"
         android:gravity="center_vertical"
         android:paddingLeft="@dimen/candy_item_padding"
         android:textSize="@dimen/textsize_small" />
 
     <CheckBox
-        android:id="@+id/stick"
+        android:id="@+id/cb_pin"
         android:layout_alignParentRight="true"
         android:button="@drawable/candy_item_checkbox_stick"
-        android:layout_width="@dimen/candy_item_height"
+        android:layout_width="@dimen/candy_item_drawable_width"
+        android:layout_marginRight="@dimen/candy_item_drawable_padding"
         android:layout_height="@dimen/candy_item_height"/>
 
 </RelativeLayout>

@@ -7,6 +7,7 @@
     <!-- candy item -->
     <dimen name="candy_item_drawable_padding">5dp</dimen>
     <dimen name="candy_item_height">30dp</dimen>
+    <dimen name="candy_item_drawable_width">30dp</dimen>
     <dimen name="candy_item_padding">5dp</dimen>
 
     <!-- text size -->
@@ -15,7 +16,7 @@
     <dimen name="textsize_small">16sp</dimen>
     <dimen name="textsize_xsmall">14sp</dimen>
 
-    <!-- main_list -->
+    <!-- tomato_list -->
     <dimen name="main_list_et_left_padding">30dp</dimen>
     <dimen name="main_list_fab_margin">16dp</dimen>
 

@@ -19,6 +19,7 @@ public class Tomato {
     private int mTimeLong;
     private Timer mTimer;
     private int mLeftTime;
+    private boolean mIsDuringTomato;
     private TimerTask mTimerTask = new TimerTask() {
         @Override
         public void run() {
@@ -64,9 +65,15 @@ public class Tomato {
         mLeftTime = mTimeLong;
         mTimer.purge();
         mTimer.schedule(mTimerTask, 0, SECOND);
+        mIsDuringTomato = true;
     }
 
     public void cancleTomato(){
         mTimer.purge();
+        mIsDuringTomato = false;
+    }
+
+    public boolean isDuringTomato(){
+        return mIsDuringTomato;
     }
 }

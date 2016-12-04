@@ -5,7 +5,7 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentStatePagerAdapter;
 
-import com.willhua.tomatowork.ui.fragment.MainFragment;
+import com.willhua.tomatowork.ui.fragment.TomatoListFragment;
 import com.willhua.tomatowork.ui.fragment.StatisticsFragment;
 import com.willhua.tomatowork.ui.fragment.UserFragment;
 import com.willhua.tomatowork.ui.fragment.WorkFragment;
@@ -30,7 +30,7 @@ public class FunctionPagerAdapter extends FragmentStatePagerAdapter {
 
     private void fillPages(){
         mPages = new ArrayList<>();
-        mPages.add(MainFragment.class);
+        mPages.add(TomatoListFragment.class);
         mPages.add(StatisticsFragment.class);
         mPages.add(WorkFragment.class);
         mPages.add(UserFragment.class);
