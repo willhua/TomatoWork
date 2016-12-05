@@ -16,7 +16,6 @@ import com.willhua.tomatowork.R;
 
 public class TabFragment extends Fragment {
     public interface TabSelected{
-        void onStartTomato();
         void onShowCandy();
         void onShowStatistics();
         void onShowUser();

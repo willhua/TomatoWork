@@ -3,21 +3,19 @@ package com.willhua.tomatowork.ui.activity;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.ViewPager;
 import android.support.v7.widget.Toolbar;
-import android.view.KeyEvent;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.willhua.tomatowork.R;
-import com.willhua.tomatowork.modle.entity.Candy;
 import com.willhua.tomatowork.modle.entity.Tomato;
-import com.willhua.tomatowork.presenter.CandyPresenter;
 import com.willhua.tomatowork.ui.IView;
 import com.willhua.tomatowork.ui.adapter.FunctionPagerAdapter;
+import com.willhua.tomatowork.ui.fragment.StatisticsFragment;
 import com.willhua.tomatowork.ui.fragment.TabFragment;
-import com.willhua.tomatowork.utils.Utils;
 import com.willhua.tomatowork.utils.LogUtil;
+import com.willhua.tomatowork.utils.Utils;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -35,7 +33,6 @@ public class MainActivity extends BaseActivity implements IView, TabFragment.Tab
     @BindView(R.id.viewpager) ViewPager mViewPager;
     @BindView(R.id.toolbar_text) TextView mTabText;
 
-    private TabFragment mTabFragment;
     private Handler mHandler;
 
     private int mTomatoTime = 25;
@@ -62,19 +59,16 @@ public class MainActivity extends BaseActivity implements IView, TabFragment.Tab
     }
 
     @Override
-    public void onStartTomato() {
-        Toast.makeText(getBaseContext(), "start", Toast.LENGTH_SHORT).show();
-        Tomato.getInstance().startTomato();
-    }
-
-    @Override
     public void onShowCandy() {
 
     }
 
     @Override
     public void onShowStatistics() {
-
+        LogUtil.d(TAG, "onShowStatistics");
+        FragmentTransaction fm = getSupportFragmentManager().beginTransaction();
+        fm.replace(R.id.container, new StatisticsFragment());
+        fm.commit();
     }
 
     @Override
