@@ -4,8 +4,9 @@
               android:layout_width="match_parent"
               android:layout_height="match_parent">
     <com.willhua.tomatowork.ui.view.BezierView
-        android:paddingLeft="80px"
+        android:id="@+id/stat_bezierview"
+        android:padding="5dp"
         android:layout_width="match_parent"
-        android:layout_height="60dp"/>
+        android:layout_height="200dp"/>
 
 </LinearLayout>

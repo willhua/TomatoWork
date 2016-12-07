@@ -1,14 +1,12 @@
 package com.willhua.tomatowork.presenter;
 
-import android.content.Context;
-
+import com.willhua.tomatowork.core.ICommand;
+import com.willhua.tomatowork.core.ICommandRunner;
 import com.willhua.tomatowork.modle.IModleCandy;
-import com.willhua.tomatowork.modle.dao.CandyData;
-import com.willhua.tomatowork.modle.dao.TomatoDbOpenHelper;
+import com.willhua.tomatowork.modle.db.CandyData;
 import com.willhua.tomatowork.modle.entity.Candy;
-import com.willhua.tomatowork.ui.IView;
+import com.willhua.tomatowork.ui.iview.ICandyListView;
 
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -16,24 +14,50 @@ import java.util.List;
  */
 
 public class CandyPresenter {
-    private IView mView;
+    private ICandyListView mView;
     private IModleCandy mModleCandy;
+    private ICommandRunner mCommandRunner;
 
-    public CandyPresenter(IView iView, Context context){
+    public CandyPresenter(ICandyListView iView, ICommandRunner runner){
         mView = iView;
-        mModleCandy = new CandyData(new TomatoDbOpenHelper(context));
+        mCommandRunner = runner;
+        mModleCandy = new CandyData();
     }
 
-    public List<Candy> getUnfinishedCandies(){
-        return mModleCandy.getAllUnfinishedCandy();
+    public void showUnfinishedCandies(){
+        mCommandRunner.runCommand(mGetUnfinishedCandiesCommand);
     }
 
-    public List<Candy> getAllCandies(){
-        List<Candy> candies = new ArrayList<>();
-        candies.addAll(mModleCandy.getAllUnfinishedCandy());
-        candies.addAll(mModleCandy.getAllFinishedCandy());
-        return candies;
+    private ICommand mGetUnfinishedCandiesCommand = new ICommand() {
+        private List<Candy> mCandies;
+        @Override
+        public void execute() {
+            mCandies = mModleCandy.getAllUnfinishedCandy();
+        }
+
+        @Override
+        public void updateUI() {
+            mView.onUnfinishedCandyQueried(mCandies);
+        }
+    };
+
+    public void showAllCandies(){
+        mCommandRunner.runCommand(mGetAllCandies);
     }
+
+    private ICommand mGetAllCandies = new ICommand() {
+        private List<Candy> mCandies;
+        @Override
+        public void execute() {
+            mCandies = mModleCandy.getAllUnfinishedCandy();
+            mCandies.addAll(mModleCandy.getAllFinishedCandy());
+        }
+
+        @Override
+        public void updateUI() {
+            mView.onFinishedCandyQueried(mCandies);
+        }
+    };
 
     public void addCandy(Candy candy){
         mModleCandy.addCandy(candy);

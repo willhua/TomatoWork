@@ -16,10 +16,13 @@ import com.willhua.tomatowork.R;
 import com.willhua.tomatowork.modle.entity.Candy;
 import com.willhua.tomatowork.modle.entity.Tomato;
 import com.willhua.tomatowork.presenter.CandyPresenter;
-import com.willhua.tomatowork.ui.IView;
+import com.willhua.tomatowork.ui.iview.ICandyListView;
+import com.willhua.tomatowork.ui.activity.MainActivity;
 import com.willhua.tomatowork.ui.adapter.CandyAdapter;
 import com.willhua.tomatowork.ui.view.AddCandyPopupWindow;
 import com.willhua.tomatowork.utils.LogUtil;
+
+import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -33,25 +36,25 @@ import butterknife.OnTouch;
 /**
  * The fragment shown first
  */
-public class TomatoListFragment extends Fragment implements IView {
+public class CandyListFragment extends BaseFragment implements ICandyListView {
 
-
-    private static final String TAG = "TomatoListFragment";
+    private static final String TAG = "CandyListFragment";
     private CandyPresenter mCandyPresenter;
-    private ListView mCandyListView;
+    @BindView(R.id.task_list) ListView mCandyListView;
     @BindView(R.id.new_candy)
     EditText mNewCandy;
     @BindView(R.id.fab_start)
     FloatingActionButton mFabStart;
 
-    public TomatoListFragment() {
+    public CandyListFragment() {
         super();
     }
 
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
-        mCandyPresenter = new CandyPresenter(this, getContext().getApplicationContext());
+        MainActivity activity = (MainActivity)context;
+        mCandyPresenter = new CandyPresenter(this, activity.getCommandRunner());
     }
 
     @Override
@@ -65,8 +68,7 @@ public class TomatoListFragment extends Fragment implements IView {
         View view = inflater.inflate(R.layout.tomato_list, null);
         ButterKnife.bind(this, view);
         mFabStart.requestFocus();
-        mCandyListView = (ListView) view.findViewById(R.id.task_list);
-        mCandyListView.setAdapter(new CandyAdapter(mCandyPresenter.getAllCandies(), mCandyClick, getResources()));
+    //    mCandyPresenter.showUnfinishedCandies();
         return view;
     }
 
@@ -75,7 +77,7 @@ public class TomatoListFragment extends Fragment implements IView {
         if (view.getVisibility() == View.VISIBLE) {
             LogUtil.d(TAG, "new candy click");
             view.setVisibility(View.INVISIBLE);
-            Context context = TomatoListFragment.this.getContext();
+            Context context = CandyListFragment.this.getContext();
             final AddCandyPopupWindow pop = new AddCandyPopupWindow(context, mNewCandy);
             pop.setOnDismissListener(new PopupWindow.OnDismissListener() {
                 @Override
@@ -86,7 +88,7 @@ public class TomatoListFragment extends Fragment implements IView {
                     LogUtil.d(TAG, "pop candy:" + candy.getTitle());
                 }
             });
-            pop.showAtLocation(TomatoListFragment.this.getView().getRootView(), Gravity.NO_GRAVITY, 0, 0);
+            pop.showAtLocation(CandyListFragment.this.getView().getRootView(), Gravity.NO_GRAVITY, 0, 0);
         }
         return true;
     }
@@ -113,4 +115,14 @@ public class TomatoListFragment extends Fragment implements IView {
     };
 
 
+    @Override
+    public void onFinishedCandyQueried(List<Candy> candies) {
+        mCandyListView.setAdapter(new CandyAdapter(candies, mCandyClick, getResources()));
+        mCandyListView.invalidate();
+    }
+
+    @Override
+    public void onUnfinishedCandyQueried(List<Candy> candies) {
+
+    }
 }

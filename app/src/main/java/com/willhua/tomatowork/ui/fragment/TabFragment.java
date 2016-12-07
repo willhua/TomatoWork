@@ -14,7 +14,7 @@ import com.willhua.tomatowork.R;
  * Created by willhua on 2016/11/20.
  */
 
-public class TabFragment extends Fragment {
+public class TabFragment extends BaseFragment {
     public interface TabSelected{
         void onShowCandy();
         void onShowStatistics();

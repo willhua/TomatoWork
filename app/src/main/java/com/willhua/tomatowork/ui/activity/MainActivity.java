@@ -1,7 +1,11 @@
 package com.willhua.tomatowork.ui.activity;
 
+import android.content.ComponentName;
+import android.content.Intent;
+import android.content.ServiceConnection;
 import android.os.Bundle;
 import android.os.Handler;
+import android.os.IBinder;
 import android.os.Message;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.ViewPager;
@@ -9,8 +13,10 @@ import android.support.v7.widget.Toolbar;
 import android.widget.TextView;
 
 import com.willhua.tomatowork.R;
+import com.willhua.tomatowork.core.ICommandRunner;
+import com.willhua.tomatowork.core.ProcessingService;
 import com.willhua.tomatowork.modle.entity.Tomato;
-import com.willhua.tomatowork.ui.IView;
+import com.willhua.tomatowork.ui.iview.IView;
 import com.willhua.tomatowork.ui.adapter.FunctionPagerAdapter;
 import com.willhua.tomatowork.ui.fragment.StatisticsFragment;
 import com.willhua.tomatowork.ui.fragment.TabFragment;
@@ -34,6 +40,7 @@ public class MainActivity extends BaseActivity implements IView, TabFragment.Tab
     @BindView(R.id.toolbar_text) TextView mTabText;
 
     private Handler mHandler;
+    private ICommandRunner mCommandRunner;
 
     private int mTomatoTime = 25;
 
@@ -42,7 +49,7 @@ public class MainActivity extends BaseActivity implements IView, TabFragment.Tab
         super.onCreate(savedInstanceState);
         setContentView(R.layout.main_activity);
         ButterKnife.bind(this);
-
+        bindService(new Intent(MainActivity.this, ProcessingService.class), mServiceConnection, BIND_AUTO_CREATE);
         initView();
         initData();
     }
@@ -56,6 +63,40 @@ public class MainActivity extends BaseActivity implements IView, TabFragment.Tab
 
     private void initView(){
         mToolbar.inflateMenu(R.menu.menu_main);
+    }
+
+    public ICommandRunner getCommandRunner(){
+        return mCommandRunner;
+    }
+
+    private ServiceConnection mServiceConnection = new ServiceConnection() {
+        @Override
+        public void onServiceConnected(ComponentName name, IBinder service) {
+            LogUtil.d(TAG, "onServiceConnected " + service);
+            mCommandRunner = ((ProcessingService.LocalCommandRunner)service).getCommandRunner();
+        }
+
+        @Override
+        public void onServiceDisconnected(ComponentName name) {
+            LogUtil.d(TAG, "onServiceDisconnected " + name);
+            mCommandRunner = null;
+        }
+    };
+
+    @Override
+    protected void onDestroy() {
+        unbindService(mServiceConnection);
+        super.onDestroy();
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
     }
 
     @Override

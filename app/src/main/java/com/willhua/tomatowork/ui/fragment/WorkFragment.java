@@ -12,7 +12,7 @@ import android.view.ViewGroup;
  * Created by willhua on 2016/11/20.
  */
 
-public class WorkFragment extends Fragment {
+public class WorkFragment extends BaseFragment {
 
     @Override
     public void onResume() {

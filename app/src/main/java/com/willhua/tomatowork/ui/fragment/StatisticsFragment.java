@@ -14,7 +14,7 @@ import com.willhua.tomatowork.R;
  * Created by willhua on 2016/11/20.
  */
 
-public class StatisticsFragment extends Fragment {
+public class StatisticsFragment extends BaseFragment {
 
     @Override
     public void onResume() {
