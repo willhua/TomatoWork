@@ -6,4 +6,5 @@ package com.willhua.tomatowork.core;
 
 public interface ICommandRunner {
     void runCommand(ICommand command);
+    void release();
 }

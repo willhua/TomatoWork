@@ -1,9 +1,12 @@
 package com.willhua.tomatowork.ui.fragment;
 
+import android.content.ComponentName;
 import android.content.Context;
+import android.content.Intent;
+import android.content.ServiceConnection;
 import android.os.Bundle;
+import android.os.IBinder;
 import android.support.design.widget.FloatingActionButton;
-import android.support.v4.app.Fragment;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -13,6 +16,7 @@ import android.widget.ListView;
 import android.widget.PopupWindow;
 
 import com.willhua.tomatowork.R;
+import com.willhua.tomatowork.core.CommandRunner;
 import com.willhua.tomatowork.modle.entity.Candy;
 import com.willhua.tomatowork.modle.entity.Tomato;
 import com.willhua.tomatowork.presenter.CandyPresenter;
@@ -53,8 +57,7 @@ public class CandyListFragment extends BaseFragment implements ICandyListView {
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
-        MainActivity activity = (MainActivity)context;
-        mCandyPresenter = new CandyPresenter(this, activity.getCommandRunner());
+        mCandyPresenter = new CandyPresenter(this);
     }
 
     @Override
@@ -68,7 +71,7 @@ public class CandyListFragment extends BaseFragment implements ICandyListView {
         View view = inflater.inflate(R.layout.tomato_list, null);
         ButterKnife.bind(this, view);
         mFabStart.requestFocus();
-    //    mCandyPresenter.showUnfinishedCandies();
+        mCandyPresenter.showUnfinishedCandies();
         return view;
     }
 

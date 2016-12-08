@@ -1,7 +1,7 @@
 package com.willhua.tomatowork.presenter;
 
+import com.willhua.tomatowork.core.CommandRunner;
 import com.willhua.tomatowork.core.ICommand;
-import com.willhua.tomatowork.core.ICommandRunner;
 import com.willhua.tomatowork.modle.IModleCandy;
 import com.willhua.tomatowork.modle.db.CandyData;
 import com.willhua.tomatowork.modle.entity.Candy;
@@ -16,16 +16,14 @@ import java.util.List;
 public class CandyPresenter {
     private ICandyListView mView;
     private IModleCandy mModleCandy;
-    private ICommandRunner mCommandRunner;
 
-    public CandyPresenter(ICandyListView iView, ICommandRunner runner){
+    public CandyPresenter(ICandyListView iView){
         mView = iView;
-        mCommandRunner = runner;
         mModleCandy = new CandyData();
     }
 
     public void showUnfinishedCandies(){
-        mCommandRunner.runCommand(mGetUnfinishedCandiesCommand);
+        CommandRunner.getRunner().runCommand(mGetUnfinishedCandiesCommand);
     }
 
     private ICommand mGetUnfinishedCandiesCommand = new ICommand() {
@@ -42,7 +40,7 @@ public class CandyPresenter {
     };
 
     public void showAllCandies(){
-        mCommandRunner.runCommand(mGetAllCandies);
+        CommandRunner.getRunner().runCommand(mGetAllCandies);
     }
 
     private ICommand mGetAllCandies = new ICommand() {

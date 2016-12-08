@@ -65,6 +65,12 @@ public class BaseFragment extends Fragment {
     }
 
     @Override
+    public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
+        LogUtil.d(getClass().getSimpleName(), "onViewCreated");
+        super.onViewCreated(view, savedInstanceState);
+    }
+
+    @Override
     public void onResume() {
         LogUtil.d(getClass().getSimpleName(), "onResume");
         super.onResume();

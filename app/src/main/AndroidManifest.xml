@@ -17,7 +17,7 @@
             </intent-filter>
         </activity>
 
-        <service android:name=".core.ProcessingService">
+        <service android:name=".core.CommandRunner">
 
         </service>
 
