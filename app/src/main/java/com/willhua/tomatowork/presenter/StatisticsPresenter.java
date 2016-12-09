@@ -2,6 +2,8 @@ package com.willhua.tomatowork.presenter;
 
 import android.content.Context;
 
+import com.willhua.tomatowork.core.CommandRunner;
+import com.willhua.tomatowork.core.ICommand;
 import com.willhua.tomatowork.modle.IModleStatistics;
 import com.willhua.tomatowork.ui.iview.IStatisticsView;
 
@@ -12,7 +14,21 @@ import com.willhua.tomatowork.ui.iview.IStatisticsView;
 public class StatisticsPresenter {
     private IModleStatistics mModleStatistics;
 
-    public StatisticsPresenter(Context context, IStatisticsView statisticsView){
+    public StatisticsPresenter(IStatisticsView statisticsView){
 
+    }
+
+    public void getMouthTomato(int year, int mouth){
+        CommandRunner.getRunner().runCommand(new ICommand() {
+            @Override
+            public void execute() {
+
+            }
+
+            @Override
+            public void updateUI() {
+
+            }
+        });
     }
 }

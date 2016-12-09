@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.content.ServiceConnection;
 import android.os.Bundle;
 import android.os.IBinder;
+import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
 import android.view.Gravity;
 import android.view.LayoutInflater;
@@ -57,9 +58,14 @@ public class CandyListFragment extends BaseFragment implements ICandyListView {
     }
 
     @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        mCandyPresenter = new CandyPresenter(this);
+    }
+
+    @Override
     public void onAttach(Context context) {
         super.onAttach(context);
-        mCandyPresenter = new CandyPresenter(this);
     }
 
     @Override

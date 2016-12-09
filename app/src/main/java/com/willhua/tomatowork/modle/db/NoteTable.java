@@ -10,4 +10,5 @@ public interface NoteTable {
     String KEY_DESCRIBE = "describe";
     String KEY_TYPE = "type";
     String KEY_PRIORITY = "priority";
+    String KEY_TITLE = "title";
 }
