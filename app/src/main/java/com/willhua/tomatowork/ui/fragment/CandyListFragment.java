@@ -50,6 +50,8 @@ public class CandyListFragment extends BaseFragment implements ICandyListView {
     @BindView(R.id.fab_start)
     FloatingActionButton mFabStart;
 
+    private List<Candy> mUnfinishedCandy;
+
     public CandyListFragment() {
         super();
     }
@@ -88,7 +90,8 @@ public class CandyListFragment extends BaseFragment implements ICandyListView {
                     view.setVisibility(View.VISIBLE);
                     Candy candy = new Candy(pop.getCandyTitle());
                     mCandyPresenter.addCandy(candy);
-                    LogUtil.d(TAG, "pop candy:" + candy.getTitle());
+                    mUnfinishedCandy.add(candy);
+                    mCandyListView.invalidate();
                 }
             });
             pop.showAtLocation(CandyListFragment.this.getView().getRootView(), Gravity.NO_GRAVITY, 0, 0);
@@ -120,12 +123,14 @@ public class CandyListFragment extends BaseFragment implements ICandyListView {
 
     @Override
     public void onFinishedCandyQueried(List<Candy> candies) {
-        mCandyListView.setAdapter(new CandyAdapter(candies, mCandyClick, getResources()));
-        mCandyListView.invalidate();
+
     }
 
     @Override
     public void onUnfinishedCandyQueried(List<Candy> candies) {
-
+        LogUtil.d(TAG, "onUnfinishedCandyQueried size:" + candies.size());
+        mUnfinishedCandy = candies;
+        mCandyListView.setAdapter(new CandyAdapter(mUnfinishedCandy, mCandyClick, getResources()));
+        mCandyListView.invalidate();
     }
 }

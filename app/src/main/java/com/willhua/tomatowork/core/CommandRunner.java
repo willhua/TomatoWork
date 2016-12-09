@@ -42,6 +42,7 @@ public class CommandRunner implements ICommandRunner {
         mHandler = new Handler(Looper.getMainLooper(), new Handler.Callback() {
             @Override
             public boolean handleMessage(Message msg) {
+                LogUtil.d(TAG, "receive msg:" + msg.what);
                 switch (msg.what) {
                     case MSG_QUERY_FINISH:
                         try {
@@ -67,6 +68,7 @@ public class CommandRunner implements ICommandRunner {
             @Override
             public void run() {
                 command.execute();
+                LogUtil.d(TAG, "Runner execute");
                 Message msg = Message.obtain();
                 msg.what = MSG_QUERY_FINISH;
                 msg.obj = command;

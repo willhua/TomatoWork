@@ -72,6 +72,7 @@ public class CandyData implements IModleCandy{
         Cursor cursor = DbMaster.getMaster().getDbHelper().getWritableDatabase().query(CandyTable.TABLE_NAME, COLUMNS,
                 CandyTable.KEY_STATE + "=?", new String[]{state},
                 null, null, null);
+        LogUtil.d(TAG, "queryCnadies cursor.size:" + cursor.getCount());
         if (cursor != null && cursor.getCount() > 0){
             while(cursor.moveToNext()){
                 Candy candy = new Candy(cursor.getString(cursor.getColumnIndex(CandyTable.KEY_DESCRIBE)));

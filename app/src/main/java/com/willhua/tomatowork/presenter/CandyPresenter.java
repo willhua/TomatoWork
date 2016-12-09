@@ -6,6 +6,7 @@ import com.willhua.tomatowork.modle.IModleCandy;
 import com.willhua.tomatowork.modle.db.CandyData;
 import com.willhua.tomatowork.modle.entity.Candy;
 import com.willhua.tomatowork.ui.iview.ICandyListView;
+import com.willhua.tomatowork.utils.LogUtil;
 
 import java.util.List;
 
@@ -14,6 +15,7 @@ import java.util.List;
  */
 
 public class CandyPresenter {
+    private static final String TAG = "CandyPresenter";
     private ICandyListView mView;
     private IModleCandy mModleCandy;
 
@@ -23,6 +25,7 @@ public class CandyPresenter {
     }
 
     public void showUnfinishedCandies(){
+        LogUtil.d(TAG, "showUnfinishedCandies");
         CommandRunner.getRunner().runCommand(mGetUnfinishedCandiesCommand);
     }
 
@@ -35,6 +38,7 @@ public class CandyPresenter {
 
         @Override
         public void updateUI() {
+            LogUtil.d(TAG, "mGetUnfinishedCandiesCommand  updateUI size:" + mCandies.size());
             mView.onUnfinishedCandyQueried(mCandies);
         }
     };

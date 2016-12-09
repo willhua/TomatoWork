@@ -15,6 +15,7 @@ import android.widget.TextView;
 import com.willhua.tomatowork.R;
 import com.willhua.tomatowork.core.ICommandRunner;
 import com.willhua.tomatowork.core.CommandRunner;
+import com.willhua.tomatowork.modle.db.DbMaster;
 import com.willhua.tomatowork.modle.entity.Tomato;
 import com.willhua.tomatowork.ui.iview.IView;
 import com.willhua.tomatowork.ui.adapter.FunctionPagerAdapter;
@@ -46,6 +47,7 @@ public class MainActivity extends BaseActivity implements IView, TabFragment.Tab
     @Override
     protected void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
+        DbMaster.init(getApplicationContext());
         setContentView(R.layout.main_activity);
         ButterKnife.bind(this);
         initView();
