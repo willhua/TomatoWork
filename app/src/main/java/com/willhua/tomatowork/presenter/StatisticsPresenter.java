@@ -27,12 +27,13 @@ public class StatisticsPresenter {
 
             @Override
             public void execute() {
-                LogUtil.d(TAG, "execute getMouthTomato " + month);
+                LogUtil.d(TAG, "presenter execute getMouthTomato " + month);
                 data = mModleStatistics.getMonthTomato(year, month);
             }
 
             @Override
             public void updateUI() {
+                LogUtil.d(TAG, "presenter updateUI " + month);
                 mView.onMouthTomatoGot(year, month, data);
             }
         });

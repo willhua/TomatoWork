@@ -53,11 +53,6 @@ class TomatoDbOpenHelper extends SQLiteOpenHelper {
         db.execSQL(CREATE_CANDY_TABLE);
         db.execSQL(CREATE_NOTE_TABLE);
         db.execSQL(CREATE_TOMATO_TABLE);
-        if(false){
-            testInsertCandy();
-            testInsertNote();
-            testInsertTomato();
-        }
         LogUtil.d(TAG, "oncreate");
     }
 
@@ -66,7 +61,7 @@ class TomatoDbOpenHelper extends SQLiteOpenHelper {
 
     }
 
-    private void testInsertCandy(){
+    void testInsertCandy(){
         Random random = new Random();
         ContentValues values;
         for(int i = 0; i < 20; i++){
@@ -76,13 +71,14 @@ class TomatoDbOpenHelper extends SQLiteOpenHelper {
             int num = random.nextInt(20);
             values.put(CandyTable.KEY_OBJECTIVE_TOM, num);
             values.put(CandyTable.KEY_CURRENT_TOM, num / 2);
+            values.put(CandyTable.KEY_STATE, CandyTable.STATE_UNFINISHED);
             long id = getWritableDatabase().insert(CandyTable.TABLE_NAME, null, values);
             LogUtil.d(TAG, "INSERT CANDY " + id);
 
         }
     }
 
-    private void testInsertNote(){
+    void testInsertNote(){
         StringBuilder builder = new StringBuilder();
         for(int i = 0; i < 15; i++){
             ContentValues values = new ContentValues();
@@ -99,7 +95,7 @@ class TomatoDbOpenHelper extends SQLiteOpenHelper {
         }
     }
 
-    private void testInsertTomato() {
+    void testInsertTomato() {
         Random random = new Random();
         for (int m = 9; m < 13; m++) {
             for (int d = 1; d < 31; d++) {
