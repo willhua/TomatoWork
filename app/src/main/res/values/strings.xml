@@ -3,4 +3,5 @@
     <string name="toolbar_text">Tomato</string>
     <string name="task_list">TaskList</string>
     <string name="create_new_candy">Create new Candy</string>
+    <string name="create_new_note">I want to note something</string>
 </resources>

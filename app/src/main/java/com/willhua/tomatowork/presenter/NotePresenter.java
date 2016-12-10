@@ -6,6 +6,7 @@ import com.willhua.tomatowork.modle.IModleNote;
 import com.willhua.tomatowork.modle.db.NoteData;
 import com.willhua.tomatowork.modle.entity.Note;
 import com.willhua.tomatowork.ui.iview.INoteView;
+import com.willhua.tomatowork.utils.LogUtil;
 
 import java.util.List;
 
@@ -14,6 +15,7 @@ import java.util.List;
  */
 
 public class NotePresenter {
+    private static final String TAG = "NotePresenter";
     private IModleNote mModleNote;
     private INoteView mView;
 
@@ -35,6 +37,7 @@ public class NotePresenter {
 
         @Override
         public void updateUI() {
+            LogUtil.d(TAG, " mGetNotesCommand  updateUI ");
             mView.onGetNote(notes);
         }
     };

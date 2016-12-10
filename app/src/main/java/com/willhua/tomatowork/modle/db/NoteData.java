@@ -2,9 +2,11 @@ package com.willhua.tomatowork.modle.db;
 
 import android.content.ContentValues;
 import android.database.Cursor;
+import android.graphics.CornerPathEffect;
 
 import com.willhua.tomatowork.modle.IModleNote;
 import com.willhua.tomatowork.modle.entity.Note;
+import com.willhua.tomatowork.utils.LogUtil;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -17,7 +19,7 @@ public class NoteData implements IModleNote {
     private static final String TAG = "NoteData";
 
     private String[] mColoumns = new String[]{
-            NoteTable.KEY_TITLE, NoteTable.KEY_DESCRIBE, NoteTable.KEY_PRIORITY
+            NoteTable.KEY_ID, NoteTable.KEY_TITLE, NoteTable.KEY_DESCRIBE, NoteTable.KEY_PRIORITY
     };
 
     @Override
@@ -28,8 +30,12 @@ public class NoteData implements IModleNote {
         int priorty = cursor.getColumnIndex(NoteTable.KEY_PRIORITY);
         int id = cursor.getColumnIndex(NoteTable.KEY_ID);
         List<Note> notes = new ArrayList<>();
+        LogUtil.d(TAG, "getNote  " + cursor.getCount());
         while (cursor.moveToNext()){
             notes.add(new Note(cursor.getInt(id), cursor.getString(title), cursor.getString(describe), cursor.getInt(priorty)));
+        }
+        if(!cursor.isClosed()){
+            cursor.close();
         }
         return notes;
     }
