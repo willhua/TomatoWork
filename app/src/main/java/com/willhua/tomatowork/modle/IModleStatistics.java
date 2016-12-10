@@ -5,5 +5,5 @@ package com.willhua.tomatowork.modle;
  */
 
 public interface IModleStatistics {
-    int[] getDayTomatoDruingMouth(int year, int mouth);
+    int[] getMonthTomato(int year, int mouth);
 }

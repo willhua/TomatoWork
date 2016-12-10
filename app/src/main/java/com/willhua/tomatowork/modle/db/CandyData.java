@@ -4,8 +4,6 @@ import android.content.ContentValues;
 import android.database.Cursor;
 
 import com.willhua.tomatowork.modle.IModleCandy;
-import com.willhua.tomatowork.modle.db.CandyTable;
-import com.willhua.tomatowork.modle.db.DbMaster;
 import com.willhua.tomatowork.modle.entity.Candy;
 import com.willhua.tomatowork.utils.LogUtil;
 
@@ -35,7 +33,7 @@ public class CandyData implements IModleCandy{
         values.put(CandyTable.KEY_OBJECTIVE_TOM, candy.getObjectiveTomato());
         values.put(CandyTable.KEY_TYPE, candy.getType());
         values.put(CandyTable.KEY_STATE, CandyTable.STATE_UNFINISHED);
-        long id = DbMaster.getMaster().getDbHelper().getWritableDatabase().insert(CandyTable.TABLE_NAME, null, values);
+        long id = DbMaster.getMaster().getWritableDatabase().insert(CandyTable.TABLE_NAME, null, values);
         candy.setID(id);
     }
 
@@ -50,12 +48,12 @@ public class CandyData implements IModleCandy{
         }else{
             values.put(CandyTable.KEY_STATE, CandyTable.STATE_UNFINISHED);
         }
-        DbMaster.getMaster().getDbHelper().getWritableDatabase().update(CandyTable.TABLE_NAME,
+        DbMaster.getMaster().getWritableDatabase().update(CandyTable.TABLE_NAME,
                 values, CandyTable.KEY_ID + "=?", new String[]{Long.toString(candy.getID())});
     }
 
     public void deleteCandy(final long id){
-        DbMaster.getMaster().getDbHelper().getWritableDatabase().delete(CandyTable.TABLE_NAME,
+        DbMaster.getMaster().getWritableDatabase().delete(CandyTable.TABLE_NAME,
                 CandyTable.KEY_ID + "=?", new String[]{Long.toString(id)});
     }
 
@@ -69,7 +67,7 @@ public class CandyData implements IModleCandy{
 
     private List<Candy> queryCnadies(final String state){
         List<Candy> candies = new ArrayList<>();
-        Cursor cursor = DbMaster.getMaster().getDbHelper().getWritableDatabase().query(CandyTable.TABLE_NAME, COLUMNS,
+        Cursor cursor = DbMaster.getMaster().getWritableDatabase().query(CandyTable.TABLE_NAME, COLUMNS,
                 CandyTable.KEY_STATE + "=?", new String[]{state},
                 null, null, null);
         LogUtil.d(TAG, "queryCnadies cursor.size:" + cursor.getCount());

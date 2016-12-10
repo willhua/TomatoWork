@@ -1,6 +1,7 @@
 package com.willhua.tomatowork.modle.db;
 
 import android.content.Context;
+import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
 /**
@@ -34,7 +35,11 @@ public class DbMaster {
         return sMaster;
     }
 
-    SQLiteOpenHelper getDbHelper(){
-        return mHelper;
+    SQLiteDatabase getWritableDatabase(){
+        return mHelper.getWritableDatabase();
+    }
+
+    SQLiteDatabase getReadableDatabase(){
+        return mHelper.getReadableDatabase();
     }
 }

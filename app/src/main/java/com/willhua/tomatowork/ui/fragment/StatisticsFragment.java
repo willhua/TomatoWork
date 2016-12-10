@@ -11,6 +11,7 @@ import com.willhua.tomatowork.R;
 import com.willhua.tomatowork.presenter.StatisticsPresenter;
 import com.willhua.tomatowork.ui.iview.IStatisticsView;
 import com.willhua.tomatowork.ui.view.BezierView;
+import com.willhua.tomatowork.utils.LogUtil;
 import com.willhua.tomatowork.utils.Utils;
 
 import java.util.Calendar;
@@ -23,7 +24,7 @@ import butterknife.ButterKnife;
  */
 
 public class StatisticsFragment extends BaseFragment implements IStatisticsView{
-
+    private static final String TAG = "StatisticsFragment";
     private StatisticsPresenter mPresenter;
 
     @BindView(R.id.stat_bezierview)
@@ -69,6 +70,7 @@ public class StatisticsFragment extends BaseFragment implements IStatisticsView{
 
     @Override
     public void onMouthTomatoGot(int year, int mouth, int[] data) {
+        LogUtil.d(TAG, "onMouthTomatoGot SIZE " + data.length);
         mBezierView.setPoints(Utils.intArrayToFloatArray(data));
         mBezierView.setYRange(0, 20);
         mBezierView.invalidate();
