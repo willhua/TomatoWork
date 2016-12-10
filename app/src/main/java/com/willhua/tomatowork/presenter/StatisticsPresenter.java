@@ -2,8 +2,8 @@ package com.willhua.tomatowork.presenter;
 
 import com.willhua.tomatowork.core.CommandRunner;
 import com.willhua.tomatowork.core.ICommand;
-import com.willhua.tomatowork.modle.IModleStatistics;
-import com.willhua.tomatowork.modle.db.StatisticsData;
+import com.willhua.tomatowork.modle.IModleTomato;
+import com.willhua.tomatowork.modle.db.TomatoData;
 import com.willhua.tomatowork.ui.iview.IStatisticsView;
 import com.willhua.tomatowork.utils.LogUtil;
 
@@ -13,12 +13,12 @@ import com.willhua.tomatowork.utils.LogUtil;
 
 public class StatisticsPresenter {
     private static final String TAG = "StatisticsPresenter";
-    private IModleStatistics mModleStatistics;
+    private IModleTomato mModleStatistics;
     private IStatisticsView mView;
 
     public StatisticsPresenter(IStatisticsView statisticsView) {
         mView = statisticsView;
-        mModleStatistics = new StatisticsData();
+        mModleStatistics = new TomatoData();
     }
 
     public void getMouthTomato(final int year, final int month) {

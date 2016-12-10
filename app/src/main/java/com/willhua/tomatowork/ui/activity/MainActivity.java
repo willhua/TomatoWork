@@ -17,10 +17,12 @@ import com.willhua.tomatowork.core.ICommandRunner;
 import com.willhua.tomatowork.core.CommandRunner;
 import com.willhua.tomatowork.modle.db.DbMaster;
 import com.willhua.tomatowork.modle.entity.Tomato;
+import com.willhua.tomatowork.ui.fragment.NoteListFragment;
 import com.willhua.tomatowork.ui.iview.IView;
 import com.willhua.tomatowork.ui.adapter.FunctionPagerAdapter;
 import com.willhua.tomatowork.ui.fragment.StatisticsFragment;
 import com.willhua.tomatowork.ui.fragment.TabFragment;
+import com.willhua.tomatowork.utils.Constants;
 import com.willhua.tomatowork.utils.LogUtil;
 import com.willhua.tomatowork.utils.Utils;
 
@@ -83,20 +85,29 @@ public class MainActivity extends BaseActivity implements IView, TabFragment.Tab
 
     @Override
     public void onShowCandy() {
+        mViewPager.setCurrentItem(Constants.POSITOIN_CANDY);
+    }
 
+    @Override
+    public void onShowNote() {
+        mViewPager.setCurrentItem(Constants.POSITOIN_NOTE);
+/*        FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
+        ft.replace(R.id.container, new NoteListFragment());
+        ft.commit();*/
     }
 
     @Override
     public void onShowStatistics() {
         LogUtil.d(TAG, "onShowStatistics");
-        FragmentTransaction fm = getSupportFragmentManager().beginTransaction();
-        fm.replace(R.id.container, new StatisticsFragment());
-        fm.commit();
+        mViewPager.setCurrentItem(Constants.POSITOIN_STAT);
+/*        FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
+        ft.replace(R.id.container, new StatisticsFragment());
+        ft.commit();*/
     }
 
     @Override
     public void onShowUser() {
-
+        mViewPager.setCurrentItem(Constants.POSITOIN_USER);
     }
 
     private Tomato.TomatoEvent mTomatoEvent = new Tomato.TomatoEvent() {

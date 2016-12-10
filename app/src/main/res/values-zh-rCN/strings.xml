@@ -3,7 +3,8 @@
     <string name="app_name">番茄助手</string>
     <string name="toolbar_text">番茄</string>
     <string name="task_list">任务</string>
-    <string name="tab_list">任务</string>
+    <string name="candy_list">任务</string>
+    <string name="note_list">记事</string>
     <string name="tab_statisticd">统计</string>
     <string name="tab_user">我的</string>
     <string name="create_new_candy">来一个新鲜番茄吧</string>

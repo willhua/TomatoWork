@@ -1,11 +1,7 @@
 package com.willhua.tomatowork.ui.fragment;
 
-import android.content.ComponentName;
 import android.content.Context;
-import android.content.Intent;
-import android.content.ServiceConnection;
 import android.os.Bundle;
-import android.os.IBinder;
 import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
 import android.view.Gravity;
@@ -17,12 +13,10 @@ import android.widget.ListView;
 import android.widget.PopupWindow;
 
 import com.willhua.tomatowork.R;
-import com.willhua.tomatowork.core.CommandRunner;
 import com.willhua.tomatowork.modle.entity.Candy;
 import com.willhua.tomatowork.modle.entity.Tomato;
 import com.willhua.tomatowork.presenter.CandyPresenter;
 import com.willhua.tomatowork.ui.iview.ICandyListView;
-import com.willhua.tomatowork.ui.activity.MainActivity;
 import com.willhua.tomatowork.ui.adapter.CandyAdapter;
 import com.willhua.tomatowork.ui.view.AddCandyPopupWindow;
 import com.willhua.tomatowork.utils.LogUtil;
@@ -45,8 +39,8 @@ public class CandyListFragment extends BaseFragment implements ICandyListView {
 
     private static final String TAG = "CandyListFragment";
     private CandyPresenter mCandyPresenter;
-    @BindView(R.id.task_list) ListView mCandyListView;
-    @BindView(R.id.new_candy)
+    @BindView(R.id.item_list) ListView mCandyListView;
+    @BindView(R.id.new_item)
     EditText mNewCandy;
     @BindView(R.id.fab_start)
     FloatingActionButton mFabStart;
@@ -76,14 +70,14 @@ public class CandyListFragment extends BaseFragment implements ICandyListView {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         super.onCreateView(inflater, container, savedInstanceState);
-        View view = inflater.inflate(R.layout.tomato_list, null);
+        View view = inflater.inflate(R.layout.item_list, null);
         ButterKnife.bind(this, view);
         mFabStart.requestFocus();
         mCandyPresenter.showUnfinishedCandies();
         return view;
     }
 
-    @OnTouch(R.id.new_candy)
+    @OnTouch(R.id.new_item)
     public boolean addNewCandy(final EditText view) {
         if (view.getVisibility() == View.VISIBLE) {
             LogUtil.d(TAG, "new candy click");

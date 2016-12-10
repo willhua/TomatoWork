@@ -2,15 +2,15 @@ package com.willhua.tomatowork.modle.db;
 
 import android.database.Cursor;
 
-import com.willhua.tomatowork.modle.IModleStatistics;
+import com.willhua.tomatowork.modle.IModleTomato;
 import com.willhua.tomatowork.utils.LogUtil;
 
 /**
  * Created by willhua on 2016/12/6.
  */
 
-public class StatisticsData implements IModleStatistics {
-    private static final String TAG = "StatisticsData";
+public class TomatoData implements IModleTomato {
+    private static final String TAG = "TomatoData";
 
     @Override
     public int[] getMonthTomato(int year, int month) {
