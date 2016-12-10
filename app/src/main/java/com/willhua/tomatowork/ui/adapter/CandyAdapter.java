@@ -15,6 +15,7 @@ import com.willhua.tomatowork.R;
 import com.willhua.tomatowork.modle.entity.Candy;
 import com.willhua.tomatowork.utils.LogUtil;
 import com.willhua.tomatowork.utils.SizedDrawable;
+import com.willhua.tomatowork.utils.Utils;
 
 import java.util.List;
 
@@ -84,7 +85,7 @@ public class CandyAdapter extends BaseAdapter {
             convertView.setTag(vh);
         }
         vh.mPosition = position;
-        vh.mTextView.setText(mCandyList.get(position).getTitle());
+        vh.mTextView.setText(Utils.getFormatCandyInfo(mCandyList.get(position)));
         vh.setClick();
         return convertView;
     }

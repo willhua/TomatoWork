@@ -6,6 +6,8 @@ package com.willhua.tomatowork.utils;
 
 import android.content.Context;
 
+import com.willhua.tomatowork.modle.entity.Candy;
+
 /**
  * this should be used on main thread because of mStringBuilder is not synchronized
  */
@@ -34,6 +36,14 @@ public class Utils {
         }
         mStringBuilder.append(seconds);
         return mStringBuilder.toString();
+    }
+
+    public static String getFormatCandyInfo(Candy candy){
+        if(candy != null){
+            return mStringBuilder.delete(0, mStringBuilder.length()).append(candy.getTitle()).append(" (").append(candy.getCurrentTomato())
+                    .append("/").append(candy.getObjectiveTomato()).append(")").toString();
+        }
+        return "";
     }
 
     public static int getStatusBarHeight(Context context) {
