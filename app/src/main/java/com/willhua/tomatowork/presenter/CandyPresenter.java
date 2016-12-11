@@ -19,18 +19,19 @@ public class CandyPresenter {
     private ICandyListView mView;
     private IModleCandy mModleCandy;
 
-    public CandyPresenter(ICandyListView iView){
+    public CandyPresenter(ICandyListView iView) {
         mView = iView;
         mModleCandy = new CandyData();
     }
 
-    public void showUnfinishedCandies(){
+    public void showUnfinishedCandies() {
         LogUtil.d(TAG, "showUnfinishedCandies");
         CommandRunner.getRunner().runCommand(mGetUnfinishedCandiesCommand);
     }
 
     private ICommand mGetUnfinishedCandiesCommand = new ICommand() {
         private List<Candy> mCandies;
+
         @Override
         public void execute() {
             mCandies = mModleCandy.getAllUnfinishedCandy();
@@ -43,12 +44,13 @@ public class CandyPresenter {
         }
     };
 
-    public void showAllCandies(){
+    public void showAllCandies() {
         CommandRunner.getRunner().runCommand(mGetAllCandies);
     }
 
     private ICommand mGetAllCandies = new ICommand() {
         private List<Candy> mCandies;
+
         @Override
         public void execute() {
             mCandies = mModleCandy.getAllUnfinishedCandy();
@@ -61,7 +63,17 @@ public class CandyPresenter {
         }
     };
 
-    public void addCandy(Candy candy){
-        mModleCandy.addCandy(candy);
+    public void addCandy(final Candy candy) {
+        CommandRunner.getRunner().runCommand(new ICommand() {
+            @Override
+            public void execute() {
+                mModleCandy.addCandy(candy);
+            }
+
+            @Override
+            public void updateUI() {
+
+            }
+        });
     }
 }

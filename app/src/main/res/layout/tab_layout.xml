@@ -8,37 +8,21 @@
 
         <TextView
             android:id="@+id/tab_candy_list"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:gravity="center"
             android:text="@string/candy_list"
-            android:textSize="@dimen/textsize_large"/>
+            style="@style/TabTextView"/>
 
         <TextView
             android:id="@+id/tab_note_list"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:gravity="center"
             android:text="@string/note_list"
-            android:textSize="@dimen/textsize_large"/>
+            style="@style/TabTextView"/>
 
         <TextView
             android:id="@+id/tab_statistics"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:gravity="center"
             android:text="@string/tab_statisticd"
-            android:textSize="@dimen/textsize_large"/>
+            style="@style/TabTextView"/>
 
         <TextView
             android:id="@+id/tab_user"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:gravity="center"
             android:text="@string/tab_user"
-            android:textSize="@dimen/textsize_large"/>
+            style="@style/TabTextView"/>
 </LinearLayout>

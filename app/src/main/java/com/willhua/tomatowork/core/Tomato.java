@@ -1,5 +1,7 @@
-package com.willhua.tomatowork.modle.entity;
+package com.willhua.tomatowork.core;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -8,14 +10,15 @@ import java.util.TimerTask;
  */
 
 public class Tomato {
-    public interface TomatoEvent{
+    public interface TomatoEvent {
         void onSecond(int left);
+
         void onOver();
     }
 
     private static final int SECOND = 1000;
     private static Tomato sSingleton = new Tomato();
-    private TomatoEvent mTomatoEvent;
+    private List<TomatoEvent> mTomatoEvents;
     private int mTimeLong;
     private Timer mTimer;
     private int mLeftTime;
@@ -23,30 +26,35 @@ public class Tomato {
     private TimerTask mTimerTask = new TimerTask() {
         @Override
         public void run() {
-            if(mTomatoEvent != null){
-                if(mLeftTime == 0){
-                    mTomatoEvent.onOver();
-                }else{
-                    mTomatoEvent.onSecond(--mLeftTime);
+            if (mLeftTime == 0) {
+                for (TomatoEvent event : mTomatoEvents) {
+                    event.onOver();
+                }
+            } else {
+                int second = --mLeftTime;
+                for (TomatoEvent event : mTomatoEvents) {
+                    event.onSecond(second);
                 }
             }
         }
     };
 
-    private Tomato(){
+    private Tomato() {
         mTimer = new Timer();
+        mTomatoEvents = new ArrayList<>(4);
     }
 
-    public static Tomato getInstance(){
+    public static Tomato getInstance() {
         return sSingleton;
     }
 
     /**
      * set time on how long a tomao will last
+     *
      * @param minutes the unit is minute
      */
-    public void setMinutes(int minutes){
-        if(minutes < 1){
+    public void setMinutes(int minutes) {
+        if (minutes < 1) {
             minutes = 25;
         }
         minutes *= 60;
@@ -54,26 +62,31 @@ public class Tomato {
     }
 
     /**
-     * set the listener for candy_item.
+     * register the listener for candy_item.
+     *
      * @param tomatoEvent
      */
-    public void setTomatoEvent(TomatoEvent tomatoEvent) {
-        mTomatoEvent = tomatoEvent;
+    public void registerTomatoEvent(TomatoEvent tomatoEvent) {
+        mTomatoEvents.add(tomatoEvent);
     }
 
-    public void startTomato(){
+    public void unregisterTomatoEvent(TomatoEvent tomatoEvent) {
+        mTomatoEvents.remove(tomatoEvent);
+    }
+
+    public void startTomato() {
         mLeftTime = mTimeLong;
         mTimer.purge();
         mTimer.schedule(mTimerTask, 0, SECOND);
         mIsDuringTomato = true;
     }
 
-    public void cancleTomato(){
+    public void cancleTomato() {
         mTimer.purge();
         mIsDuringTomato = false;
     }
 
-    public boolean isDuringTomato(){
+    public boolean isDuringTomato() {
         return mIsDuringTomato;
     }
 }

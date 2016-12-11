@@ -14,13 +14,14 @@ import android.widget.PopupWindow;
 
 import com.willhua.tomatowork.R;
 import com.willhua.tomatowork.modle.entity.Candy;
-import com.willhua.tomatowork.modle.entity.Tomato;
+import com.willhua.tomatowork.core.Tomato;
 import com.willhua.tomatowork.presenter.CandyPresenter;
 import com.willhua.tomatowork.ui.iview.ICandyListView;
 import com.willhua.tomatowork.ui.adapter.CandyAdapter;
 import com.willhua.tomatowork.ui.view.AddCandyPopupWindow;
 import com.willhua.tomatowork.utils.LogUtil;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
@@ -45,7 +46,8 @@ public class CandyListFragment extends BaseFragment implements ICandyListView {
     @BindView(R.id.fab_start)
     FloatingActionButton mFabStart;
 
-    private List<Candy> mUnfinishedCandy;
+    private List<Candy> mUnfinishedCandy = new ArrayList<>();
+    private CandyAdapter mCandyAdapter;
 
     public CandyListFragment() {
         super();
@@ -91,6 +93,9 @@ public class CandyListFragment extends BaseFragment implements ICandyListView {
                     Candy candy = new Candy(pop.getCandyTitle());
                     mCandyPresenter.addCandy(candy);
                     mUnfinishedCandy.add(candy);
+                    LogUtil.d(TAG, " ondisss mUnfinishedCandy " + mUnfinishedCandy.size());
+                    mCandyListView.invalidate();
+                    mCandyListView.setAdapter(new CandyAdapter(mUnfinishedCandy, mCandyClick, getResources()));
                     mCandyListView.invalidate();
                 }
             });

@@ -11,12 +11,12 @@ import com.willhua.tomatowork.utils.LogUtil;
  * Created by willhua on 2016/12/6.
  */
 
-public class StatisticsPresenter {
-    private static final String TAG = "StatisticsPresenter";
+public class TomatoPresenter {
+    private static final String TAG = "TomatoPresenter";
     private IModleTomato mModleStatistics;
     private IStatisticsView mView;
 
-    public StatisticsPresenter(IStatisticsView statisticsView) {
+    public TomatoPresenter(IStatisticsView statisticsView) {
         mView = statisticsView;
         mModleStatistics = new TomatoData();
     }

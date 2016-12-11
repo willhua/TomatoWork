@@ -59,6 +59,8 @@ public class AddCandyPopupWindow extends PopupWindow {
             @Override
             public void onEnterInputted(String currentText) {
                 AddCandyPopupWindow.this.dismiss();
+                mEditText.setFocusable(true);
+                mEditText.requestFocus();
             }
         });
     }

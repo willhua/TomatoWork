@@ -18,9 +18,7 @@ public class DbMaster {
 
     private DbMaster(){
         mHelper = new TomatoDbOpenHelper(sContext);
-/*        mHelper.testInsertCandy();
-        mHelper.testInsertNote();
-        mHelper.testInsertTomato();*/
+        mHelper.test();
     }
 
     public static void init(Context context){

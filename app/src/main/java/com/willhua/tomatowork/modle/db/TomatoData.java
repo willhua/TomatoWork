@@ -1,5 +1,6 @@
 package com.willhua.tomatowork.modle.db;
 
+import android.content.ContentValues;
 import android.database.Cursor;
 
 import com.willhua.tomatowork.modle.IModleTomato;
@@ -29,4 +30,17 @@ public class TomatoData implements IModleTomato {
         }
         return data;
     }
+
+    @Override
+    public void insertTomato(int year, int month, int day, int hour) {
+        LogUtil.d(TAG, "insertTomato  " + hour);
+        ContentValues values = new ContentValues();
+        values.put(TomatoTable.KEY_HOUR, hour);
+        values.put(TomatoTable.KEY_DAY, day);
+        values.put(TomatoTable.KEY_MONTH, month);
+        values.put(TomatoTable.KEY_YEAR, year);
+        DbMaster.getMaster().getWritableDatabase().insert(TomatoTable.TABLE_NAME, null, values);
+    }
+
+
 }

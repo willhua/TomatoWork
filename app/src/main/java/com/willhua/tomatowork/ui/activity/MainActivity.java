@@ -1,27 +1,26 @@
 package com.willhua.tomatowork.ui.activity;
 
-import android.content.ComponentName;
-import android.content.Intent;
-import android.content.ServiceConnection;
 import android.os.Bundle;
 import android.os.Handler;
-import android.os.IBinder;
 import android.os.Message;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.ViewPager;
 import android.support.v7.widget.Toolbar;
+import android.view.Gravity;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.FrameLayout;
 import android.widget.TextView;
 
 import com.willhua.tomatowork.R;
-import com.willhua.tomatowork.core.ICommandRunner;
 import com.willhua.tomatowork.core.CommandRunner;
 import com.willhua.tomatowork.modle.db.DbMaster;
-import com.willhua.tomatowork.modle.entity.Tomato;
-import com.willhua.tomatowork.ui.fragment.NoteListFragment;
+import com.willhua.tomatowork.core.Tomato;
 import com.willhua.tomatowork.ui.iview.IView;
 import com.willhua.tomatowork.ui.adapter.FunctionPagerAdapter;
-import com.willhua.tomatowork.ui.fragment.StatisticsFragment;
 import com.willhua.tomatowork.ui.fragment.TabFragment;
+import com.willhua.tomatowork.ui.view.TomatoFinishPopupWindow;
 import com.willhua.tomatowork.utils.Constants;
 import com.willhua.tomatowork.utils.LogUtil;
 import com.willhua.tomatowork.utils.Utils;
@@ -37,14 +36,15 @@ public class MainActivity extends BaseActivity implements IView, TabFragment.Tab
 
     private static final String TAG = "MainActivity";
     private static final int MSG_INVALIDATE_TOMATO_TIME = 101;
+    private static final int MSG_INVALIDATE_TOMATO_OVER = 102;
 
     @BindView(R.id.toolbar) Toolbar mToolbar;
-    @BindView(R.id.viewpager) ViewPager mViewPager;
     @BindView(R.id.toolbar_text) TextView mTabText;
+    @BindView(R.id.viewpager) ViewPager mViewPager;
 
     private Handler mHandler;
 
-    private int mTomatoTime = 25;
+    private int mTomatoTime = 1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState){
@@ -60,7 +60,7 @@ public class MainActivity extends BaseActivity implements IView, TabFragment.Tab
         mViewPager.setAdapter(new FunctionPagerAdapter(this));
         mHandler = new Handler(mHandlerCallback);
         Tomato.getInstance().setMinutes(mTomatoTime);
-        Tomato.getInstance().setTomatoEvent(mTomatoEvent);
+        Tomato.getInstance().registerTomatoEvent(mTomatoEvent);
     }
 
     private void initView(){
@@ -90,19 +90,14 @@ public class MainActivity extends BaseActivity implements IView, TabFragment.Tab
 
     @Override
     public void onShowNote() {
+        LogUtil.d(TAG, "onShowNote");
         mViewPager.setCurrentItem(Constants.POSITOIN_NOTE);
-/*        FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
-        ft.replace(R.id.container, new NoteListFragment());
-        ft.commit();*/
     }
 
     @Override
     public void onShowStatistics() {
         LogUtil.d(TAG, "onShowStatistics");
         mViewPager.setCurrentItem(Constants.POSITOIN_STAT);
-/*        FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
-        ft.replace(R.id.container, new StatisticsFragment());
-        ft.commit();*/
     }
 
     @Override
@@ -121,7 +116,11 @@ public class MainActivity extends BaseActivity implements IView, TabFragment.Tab
 
         @Override
         public void onOver() {
-
+            Message msg = Message.obtain();
+            msg.what = MSG_INVALIDATE_TOMATO_OVER;
+            mHandler.sendMessage(msg);
+            TomatoFinishPopupWindow popupWindow = new TomatoFinishPopupWindow(getApplicationContext());
+            popupWindow.showAtLocation(mViewPager, Gravity.BOTTOM, 0, 0);
         }
     };
 
@@ -132,6 +131,8 @@ public class MainActivity extends BaseActivity implements IView, TabFragment.Tab
                 case MSG_INVALIDATE_TOMATO_TIME:
                     mTabText.setText(Utils.getTomatoTime(msg.arg1));
                     break;
+                case MSG_INVALIDATE_TOMATO_OVER:
+                    mTabText.setText("25:00");
                 default:
                     break;
             }

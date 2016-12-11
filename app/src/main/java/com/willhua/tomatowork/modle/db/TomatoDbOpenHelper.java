@@ -2,9 +2,11 @@ package com.willhua.tomatowork.modle.db;
 
 import android.content.ContentValues;
 import android.content.Context;
+import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
+import com.willhua.tomatowork.modle.entity.Candy;
 import com.willhua.tomatowork.utils.LogUtil;
 
 import java.util.Random;
@@ -32,6 +34,7 @@ class TomatoDbOpenHelper extends SQLiteOpenHelper {
             + CandyTable.KEY_CURRENT_TOM + " integer, "
             + CandyTable.KEY_TYPE + " integer, "
             + CandyTable.KEY_PRIORITY + " integer, "
+            + CandyTable.KEY_MODIFY_TIME + " long, "
             + CandyTable.KEY_STATE + ")";
 
     private static final String CREATE_TOMATO_TABLE = "CREATE TABLE if not exists '" + TomatoTable.TABLE_NAME + "' ("
@@ -61,7 +64,16 @@ class TomatoDbOpenHelper extends SQLiteOpenHelper {
 
     }
 
-    void testInsertCandy(){
+    void test(){
+        Cursor cursor = getWritableDatabase().query(CandyTable.TABLE_NAME,null, null, null, null, null, null);
+        if(cursor.getCount() < 1){
+            testInsertTomato();
+            testInsertCandy();
+            testInsertNote();
+        }
+    }
+
+    private void testInsertCandy(){
         Random random = new Random();
         ContentValues values;
         for(int i = 0; i < 20; i++){
@@ -78,7 +90,7 @@ class TomatoDbOpenHelper extends SQLiteOpenHelper {
         }
     }
 
-    void testInsertNote(){
+    private void testInsertNote(){
         StringBuilder builder = new StringBuilder();
         for(int i = 0; i < 15; i++){
             ContentValues values = new ContentValues();
@@ -95,12 +107,12 @@ class TomatoDbOpenHelper extends SQLiteOpenHelper {
         }
     }
 
-    void testInsertTomato() {
+    private void testInsertTomato() {
         Random random = new Random();
         for (int m = 9; m < 13; m++) {
             for (int d = 1; d < 31; d++) {
                 for (int h = 8; h < 24; h++) {
-                    if(random.nextInt(2) == 1){ //not add for erery hour
+                    if((random.nextInt(10) & 1) == 0){ //not add for erery hour
                         ContentValues values = new ContentValues();
                         values.put(TomatoTable.KEY_YEAR, 2016);
                         values.put(TomatoTable.KEY_MONTH, m);

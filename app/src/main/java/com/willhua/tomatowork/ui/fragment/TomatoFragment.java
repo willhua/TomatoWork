@@ -8,7 +8,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.willhua.tomatowork.R;
-import com.willhua.tomatowork.presenter.StatisticsPresenter;
+import com.willhua.tomatowork.presenter.TomatoPresenter;
 import com.willhua.tomatowork.ui.iview.IStatisticsView;
 import com.willhua.tomatowork.ui.view.BezierView;
 import com.willhua.tomatowork.utils.LogUtil;
@@ -23,9 +23,9 @@ import butterknife.ButterKnife;
  * Created by willhua on 2016/11/20.
  */
 
-public class StatisticsFragment extends BaseFragment implements IStatisticsView{
-    private static final String TAG = "StatisticsFragment";
-    private StatisticsPresenter mPresenter;
+public class TomatoFragment extends BaseFragment implements IStatisticsView{
+    private static final String TAG = "TomatoFragment";
+    private TomatoPresenter mPresenter;
 
     @BindView(R.id.stat_bezierview)
     BezierView mBezierView;
@@ -43,7 +43,7 @@ public class StatisticsFragment extends BaseFragment implements IStatisticsView{
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        mPresenter = new StatisticsPresenter(this);
+        mPresenter = new TomatoPresenter(this);
     }
 
     @Nullable

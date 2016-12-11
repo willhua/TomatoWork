@@ -29,7 +29,7 @@ public class CandyAdapter extends BaseAdapter {
         void onStick(int position, boolean checked);
     }
 
-    private final String FILTER = "CandyAdapter";
+    private final String TAG = "CandyAdapter";
     private List<Candy> mCandyList;
     private CandyClick mCandyClick;
     private int mDrawableSize;
@@ -57,6 +57,7 @@ public class CandyAdapter extends BaseAdapter {
 
     @Override
     public int getCount() {
+        LogUtil.d(TAG, "GETCOUNT" + mCandyList.size());
         return mCandyList.size();
     }
 
@@ -72,6 +73,7 @@ public class CandyAdapter extends BaseAdapter {
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
+        LogUtil.d(TAG, "GETVIEW  " + position);
         ViewHolder vh = null;
         if(convertView != null){
             vh = (ViewHolder) convertView.getTag();
@@ -115,7 +117,7 @@ public class CandyAdapter extends BaseAdapter {
                     }else{
                         mDone.setButtonDrawable(mDoneNotChecked);
                     }
-                    LogUtil.d(FILTER, "ondone " + isChecked);
+                    LogUtil.d(TAG, "ondone " + isChecked);
                     if(mCandyClick != null){
                         mCandyClick.onDone(mPosition, isChecked);
                     }
@@ -129,7 +131,7 @@ public class CandyAdapter extends BaseAdapter {
                     }else{
                         mStick.setButtonDrawable(mStickNotChecked);
                     }
-                    LogUtil.d(FILTER, "onstick " + isChecked);
+                    LogUtil.d(TAG, "onstick " + isChecked);
                     if(mCandyClick != null){
                         mCandyClick.onStick(mPosition, isChecked);
                     }

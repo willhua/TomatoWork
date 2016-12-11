@@ -16,4 +16,5 @@ public interface CandyTable {
     String KEY_TYPE = "type";
     String KEY_PRIORITY = "priority";
     String KEY_STATE = "state";
+    String KEY_MODIFY_TIME = "modifytime";
 }

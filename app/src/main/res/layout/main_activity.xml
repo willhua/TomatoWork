@@ -1,39 +1,47 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="https://schemas.android.com/apk/res-auto"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="@color/color500">
+                xmlns:app="https://schemas.android.com/apk/res-auto"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@color/color500">
 
     <android.support.v7.widget.Toolbar
         android:id="@+id/toolbar"
-        android:background="@color/colorBasic"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:background="@color/colorBasic">
 
         <TextView
             android:id="@+id/toolbar_text"
-            android:layout_gravity="center_horizontal"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
             android:text="@string/toolbar_text"/>
 
     </android.support.v7.widget.Toolbar>
 
-    <fragment class="com.willhua.tomatowork.ui.fragment.TabFragment"
-              android:id="@+id/tabfragment"
+    <fragment
+        android:id="@+id/tabfragment"
+        class="com.willhua.tomatowork.ui.fragment.TabFragment"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true">
     </fragment>
 
-    <android.support.v4.view.ViewPager
-        android:id="@+id/viewpager"
+    <FrameLayout
+        android:id="@+id/main_container"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="@color/color200"
-        android:layout_below="@id/toolbar"
-        android:layout_above="@id/tabfragment">
-    </android.support.v4.view.ViewPager>
+        android:layout_height="wrap_content"
+        android:layout_above="@id/tabfragment"
+        android:layout_below="@id/toolbar">
+
+        <android.support.v4.view.ViewPager
+            android:id="@+id/viewpager"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/color200" >
+        </android.support.v4.view.ViewPager>
+    </FrameLayout>
+
 
 </RelativeLayout>

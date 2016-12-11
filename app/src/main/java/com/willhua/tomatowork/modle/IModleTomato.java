@@ -5,5 +5,6 @@ package com.willhua.tomatowork.modle;
  */
 
 public interface IModleTomato {
-    int[] getMonthTomato(int year, int mouth);
+    int[] getMonthTomato(int year, int month);
+    void insertTomato(int year, int month, int day, int hour);
 }

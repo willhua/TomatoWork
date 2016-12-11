@@ -97,7 +97,7 @@ public class BezierView extends View {
         mPaint.setColor(mLineColor);
         canvas.drawPath(mPath, mPaint);
         drawPoint(canvas);
-        LogUtil.d(TAG, "time 3 " + (System.currentTimeMillis() - time));
+        //LogUtil.d(TAG, "time 3 " + (System.currentTimeMillis() - time));
     }
 
     public void setDividerNumX(int dividerNumX) {
@@ -181,7 +181,7 @@ public class BezierView extends View {
     private float toY(int i) {
         float ymax = mYMin + mYRange;
         float y = getPaddingTop() + (ymax - mValues[i]) / mYRange * mDrawableHeight;
-        LogUtil.d(TAG, mValues[i] +" to y:" + y);
+        //LogUtil.d(TAG, mValues[i] +" to y:" + y);
         return y;
     }
 
