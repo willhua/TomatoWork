@@ -28,6 +28,8 @@ public class Tomato {
         public void run() {
             if (mLeftTime == 0) {
                 for (TomatoEvent event : mTomatoEvents) {
+                    mLeftTime = mTimeLong;
+                    cancleTomato();
                     event.onOver();
                 }
             } else {
@@ -58,7 +60,7 @@ public class Tomato {
             minutes = 25;
         }
         minutes *= 60;
-        mTimeLong = minutes;
+        mTimeLong = 10;
     }
 
     /**
