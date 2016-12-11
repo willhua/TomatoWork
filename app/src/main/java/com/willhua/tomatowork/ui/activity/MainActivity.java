@@ -3,9 +3,11 @@ package com.willhua.tomatowork.ui.activity;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v4.view.ViewPager;
 import android.support.v7.widget.Toolbar;
 import android.view.Gravity;
+import android.view.View;
 import android.widget.TextView;
 
 import com.willhua.tomatowork.R;
@@ -20,8 +22,12 @@ import com.willhua.tomatowork.utils.Constants;
 import com.willhua.tomatowork.utils.LogUtil;
 import com.willhua.tomatowork.utils.Utils;
 
+import java.util.Timer;
+import java.util.TimerTask;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 
 /**
  * Created by willhua on 2016/11/13.
@@ -30,8 +36,9 @@ import butterknife.ButterKnife;
 public class MainActivity extends BaseActivity implements IView, TabFragment.TabSelected {
 
     private static final String TAG = "MainActivity";
+    private static final int FLAG_START_TOMATO = 0;
+    private static final int FLAG_NOT_DURING_TOMATO = -1;
     private static final int MSG_INVALIDATE_TOMATO_TIME = 101;
-    private static final int MSG_INVALIDATE_TOMATO_OVER = 102;
 
     @BindView(R.id.toolbar)
     Toolbar mToolbar;
@@ -39,10 +46,14 @@ public class MainActivity extends BaseActivity implements IView, TabFragment.Tab
     TextView mTabText;
     @BindView(R.id.viewpager)
     ViewPager mViewPager;
+    @BindView(R.id.fab_start)
+    FloatingActionButton mFabStart;
 
     private Handler mHandler;
+    private Timer mTimer;
 
-    private int mTomatoTime = 1;
+    private int mTomatoTime = 10;
+    private int mContinueTime = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -57,8 +68,14 @@ public class MainActivity extends BaseActivity implements IView, TabFragment.Tab
     private void initData() {
         mViewPager.setAdapter(new FunctionPagerAdapter(this));
         mHandler = new Handler(mHandlerCallback);
-        Tomato.getInstance().setMinutes(mTomatoTime);
-        Tomato.getInstance().registerTomatoEvent(mTomatoEvent);
+        mContinueTime = FLAG_NOT_DURING_TOMATO;
+        mTimer = new Timer();
+        mTimer.schedule(new TimerTask() {
+            @Override
+            public void run() {
+                mHandler.sendEmptyMessage(MSG_INVALIDATE_TOMATO_TIME);
+            }
+        }, 0, 1000);
     }
 
     private void initView() {
@@ -68,6 +85,7 @@ public class MainActivity extends BaseActivity implements IView, TabFragment.Tab
     @Override
     protected void onDestroy() {
         CommandRunner.getRunner().release();
+        mTimer.cancel();
         super.onDestroy();
     }
 
@@ -103,39 +121,39 @@ public class MainActivity extends BaseActivity implements IView, TabFragment.Tab
         mViewPager.setCurrentItem(Constants.POSITOIN_USER);
     }
 
-    private Tomato.TomatoEvent mTomatoEvent = new Tomato.TomatoEvent() {
-        @Override
-        public void onSecond(int left) {
-            Message msg = Message.obtain();
-            msg.what = MSG_INVALIDATE_TOMATO_TIME;
-            msg.arg1 = left;
-            mHandler.sendMessage(msg);
-        }
-
-        @Override
-        public void onOver() {
-            Message msg = Message.obtain();
-            msg.what = MSG_INVALIDATE_TOMATO_OVER;
-            mHandler.sendMessage(msg);
-        }
-    };
-
     private Handler.Callback mHandlerCallback = new Handler.Callback() {
         @Override
         public boolean handleMessage(Message msg) {
+            if (MainActivity.this.isDestroyed()) {
+                return false;
+            }
             switch (msg.what) {
                 case MSG_INVALIDATE_TOMATO_TIME:
-                    mTabText.setText(Utils.getTomatoTime(msg.arg1));
+                    if (mContinueTime >= FLAG_START_TOMATO) {
+                        ++mContinueTime;
+                        if (mContinueTime == mTomatoTime) { //tomato finish
+                            mContinueTime = FLAG_NOT_DURING_TOMATO;
+                            mTabText.setText(Utils.getTomatoTime(mTomatoTime));
+                            TomatoFinishPopupWindow popupWindow = new TomatoFinishPopupWindow(getApplicationContext());
+                            popupWindow.showAtLocation(mViewPager, Gravity.BOTTOM, 0, 0);
+                        } else {
+                            mTabText.setText(Utils.getTomatoTime(mTomatoTime - mContinueTime));
+                        }
+                    }
                     break;
-                case MSG_INVALIDATE_TOMATO_OVER:
-                    mTabText.setText("25:00");
-                    TomatoFinishPopupWindow popupWindow = new TomatoFinishPopupWindow(getApplicationContext());
-                    popupWindow.showAtLocation(mViewPager, Gravity.BOTTOM, 0, 0);
                 default:
                     break;
             }
             return true;
         }
     };
+
+    @OnClick(R.id.fab_start)
+    public void startTomato(View view) {
+        LogUtil.d(TAG, "fab click");
+        if(mContinueTime == FLAG_NOT_DURING_TOMATO){
+            mContinueTime = FLAG_START_TOMATO;
+        }
+    }
 
 }

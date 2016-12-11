@@ -43,8 +43,6 @@ public class CandyListFragment extends BaseFragment implements ICandyListView {
     @BindView(R.id.item_list) ListView mCandyListView;
     @BindView(R.id.new_item)
     EditText mNewCandy;
-    @BindView(R.id.fab_start)
-    FloatingActionButton mFabStart;
 
     private List<Candy> mUnfinishedCandy = new ArrayList<>();
     private CandyAdapter mCandyAdapter;
@@ -74,7 +72,6 @@ public class CandyListFragment extends BaseFragment implements ICandyListView {
         super.onCreateView(inflater, container, savedInstanceState);
         View view = inflater.inflate(R.layout.item_list, null);
         ButterKnife.bind(this, view);
-        mFabStart.requestFocus();
         mCandyPresenter.showUnfinishedCandies();
         return view;
     }
@@ -102,15 +99,6 @@ public class CandyListFragment extends BaseFragment implements ICandyListView {
             pop.showAtLocation(CandyListFragment.this.getView().getRootView(), Gravity.NO_GRAVITY, 0, 0);
         }
         return true;
-    }
-
-    @OnClick(R.id.fab_start)
-    public void startTomato(View view) {
-        LogUtil.d(TAG, "fab click");
-        if (!Tomato.getInstance().isDuringTomato()) {
-            LogUtil.d(TAG, "fab click 2");
-            Tomato.getInstance().startTomato();
-        }
     }
 
     private CandyAdapter.CandyClick mCandyClick = new CandyAdapter.CandyClick() {

@@ -44,4 +44,15 @@
     </FrameLayout>
 
 
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/fab_start"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:borderWidth="0dp"
+        android:src="@drawable/start"
+        android:layout_margin="@dimen/main_list_fab_margin"
+        android:layout_above="@id/tabfragment"
+        android:layout_alignParentRight="true" />
+
+
 </RelativeLayout>

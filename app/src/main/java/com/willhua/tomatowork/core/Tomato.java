@@ -78,13 +78,13 @@ public class Tomato {
 
     public void startTomato() {
         mLeftTime = mTimeLong;
-        mTimer.purge();
+        mTimer.cancel();
         mTimer.schedule(mTimerTask, 0, SECOND);
         mIsDuringTomato = true;
     }
 
     public void cancleTomato() {
-        mTimer.purge();
+        mTimer.cancel();
         mIsDuringTomato = false;
     }
 

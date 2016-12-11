@@ -53,7 +53,6 @@ public class NoteListFragment extends BaseFragment implements INoteView {
         View view = inflater.inflate(R.layout.item_list, null);
         ButterKnife.bind(this, view);
         mEtAdd.setHint(R.string.create_new_note);
-        view.findViewById(R.id.fab_start).setVisibility(View.GONE);
         mNotePresenter.getNotes();
         return view;
     }
