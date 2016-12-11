@@ -52,7 +52,7 @@ public class TomatoFinishPopupWindow extends PopupWindow {
         WindowManager windowManager = (WindowManager)context.getSystemService(Context.WINDOW_SERVICE);
         windowManager.getDefaultDisplay().getMetrics(dm);
         setWidth(dm.widthPixels);
-        setHeight(dm.heightPixels);
+        setHeight(dm.heightPixels / 2);
     }
 
     private void fillData(){

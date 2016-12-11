@@ -52,7 +52,7 @@ public class MainActivity extends BaseActivity implements IView, TabFragment.Tab
     private Handler mHandler;
     private Timer mTimer;
 
-    private int mTomatoTime = 10;
+    private int mTomatoTime = 3;
     private int mContinueTime = 0;
 
     @Override
