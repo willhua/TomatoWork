@@ -72,7 +72,11 @@ public class AddCandyPopupWindow extends PopupWindow {
     }
 
     public String getCandyTitle() {
-        return mEditText.getText().toString();
+        String title = mEditText.getText().toString();
+        if(title.endsWith("\n")){
+            title = title.substring(0, title.length() - 1);
+        }
+        return title;
     }
 
 

@@ -92,7 +92,7 @@ public class CandyListFragment extends BaseFragment implements ICandyListView {
                     view.setVisibility(View.VISIBLE);
                     Candy candy = new Candy(pop.getCandyTitle());
                     mCandyPresenter.addCandy(candy);
-                    mUnfinishedCandy.add(candy);
+                    mUnfinishedCandy.add(0, candy);
                     LogUtil.d(TAG, " ondisss mUnfinishedCandy " + mUnfinishedCandy.size());
                     mCandyListView.invalidate();
                     mCandyListView.setAdapter(new CandyAdapter(mUnfinishedCandy, mCandyClick, getResources()));
