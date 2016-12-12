@@ -2,8 +2,8 @@ package com.willhua.tomatowork.presenter;
 
 import com.willhua.tomatowork.core.CommandRunner;
 import com.willhua.tomatowork.core.ICommand;
-import com.willhua.tomatowork.modle.IModleCandy;
-import com.willhua.tomatowork.modle.db.CandyData;
+import com.willhua.tomatowork.modle.data.idata.IModleCandy;
+import com.willhua.tomatowork.modle.data.CandyData;
 import com.willhua.tomatowork.modle.entity.Candy;
 import com.willhua.tomatowork.ui.iview.ICandyListView;
 import com.willhua.tomatowork.utils.LogUtil;

@@ -1,4 +1,4 @@
-package com.willhua.tomatowork.modle.db;
+package com.willhua.tomatowork.modle.data;
 
 /**
  * Created by willhua on 2016/12/9.

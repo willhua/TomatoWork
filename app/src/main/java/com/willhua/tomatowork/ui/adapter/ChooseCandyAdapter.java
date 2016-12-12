@@ -1,11 +1,13 @@
 package com.willhua.tomatowork.ui.adapter;
 
+import android.util.TypedValue;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.FrameLayout;
 import android.widget.TextView;
 
+import com.willhua.tomatowork.R;
 import com.willhua.tomatowork.modle.entity.Candy;
 import com.willhua.tomatowork.utils.Utils;
 
@@ -52,6 +54,7 @@ public class ChooseCandyAdapter extends BaseAdapter {
     private View createItemView(ViewGroup parent) {
         TextView textView = new TextView(parent.getContext());
         textView.setLayoutParams(mLayoutParams);
+        textView.setTextSize(TypedValue.COMPLEX_UNIT_PX, parent.getContext().getResources().getDimension(R.dimen.textsize_middle));
         return textView;
     }
 }

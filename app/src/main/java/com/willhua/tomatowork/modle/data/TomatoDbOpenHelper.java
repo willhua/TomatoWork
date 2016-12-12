@@ -1,4 +1,4 @@
-package com.willhua.tomatowork.modle.db;
+package com.willhua.tomatowork.modle.data;
 
 import android.content.ContentValues;
 import android.content.Context;
@@ -6,7 +6,6 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
-import com.willhua.tomatowork.modle.entity.Candy;
 import com.willhua.tomatowork.utils.LogUtil;
 
 import java.util.Random;

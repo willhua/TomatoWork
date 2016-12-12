@@ -2,8 +2,8 @@ package com.willhua.tomatowork.presenter;
 
 import com.willhua.tomatowork.core.CommandRunner;
 import com.willhua.tomatowork.core.ICommand;
-import com.willhua.tomatowork.modle.IModleNote;
-import com.willhua.tomatowork.modle.db.NoteData;
+import com.willhua.tomatowork.modle.data.idata.IModleNote;
+import com.willhua.tomatowork.modle.data.NoteData;
 import com.willhua.tomatowork.modle.entity.Note;
 import com.willhua.tomatowork.ui.iview.INoteView;
 import com.willhua.tomatowork.utils.LogUtil;

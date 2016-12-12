@@ -37,4 +37,13 @@ public class Candy extends BasicSeed{
         return mID = id;
     }
 
+    @Override
+    public String toString(){
+        return mTitle + " " + mCurrentTomato + "/" + mObjectiveTomato;
+    }
+
+    public void addTomato(){
+        ++mCurrentTomato;
+    }
+
 }

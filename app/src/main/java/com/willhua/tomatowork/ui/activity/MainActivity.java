@@ -12,8 +12,7 @@ import android.widget.TextView;
 
 import com.willhua.tomatowork.R;
 import com.willhua.tomatowork.core.CommandRunner;
-import com.willhua.tomatowork.core.Tomato;
-import com.willhua.tomatowork.modle.db.DbMaster;
+import com.willhua.tomatowork.modle.data.DbMaster;
 import com.willhua.tomatowork.ui.adapter.FunctionPagerAdapter;
 import com.willhua.tomatowork.ui.fragment.TabFragment;
 import com.willhua.tomatowork.ui.iview.IView;
@@ -50,8 +49,8 @@ public class MainActivity extends BaseActivity implements IView, TabFragment.Tab
     FloatingActionButton mFabStart;
 
     private Handler mHandler;
-    private Timer mTimer;
 
+    private Timer mTimer;
     private int mTomatoTime = 3;
     private int mContinueTime = 0;
 

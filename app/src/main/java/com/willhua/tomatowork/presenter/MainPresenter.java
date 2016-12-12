@@ -1,7 +1,7 @@
 package com.willhua.tomatowork.presenter;
 
-import com.willhua.tomatowork.modle.IModleCandy;
-import com.willhua.tomatowork.modle.IModleNote;
+import com.willhua.tomatowork.modle.data.idata.IModleCandy;
+import com.willhua.tomatowork.modle.data.idata.IModleNote;
 import com.willhua.tomatowork.ui.iview.IView;
 
 /**

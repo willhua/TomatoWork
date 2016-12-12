@@ -12,10 +12,11 @@ import android.widget.PopupWindow;
 import com.willhua.tomatowork.R;
 import com.willhua.tomatowork.core.CommandRunner;
 import com.willhua.tomatowork.core.ICommand;
-import com.willhua.tomatowork.modle.db.CandyData;
-import com.willhua.tomatowork.modle.db.TomatoData;
+import com.willhua.tomatowork.modle.data.CandyData;
+import com.willhua.tomatowork.modle.data.TomatoData;
 import com.willhua.tomatowork.modle.entity.Candy;
 import com.willhua.tomatowork.ui.adapter.ChooseCandyAdapter;
+import com.willhua.tomatowork.utils.LogUtil;
 
 import java.util.Calendar;
 import java.util.List;
@@ -28,6 +29,8 @@ import butterknife.ButterKnife;
  */
 
 public class TomatoFinishPopupWindow extends PopupWindow {
+
+    private static final String TAG = "TomatoFinishPopupWindow";
 
     @BindView(R.id.lv_tomato_to_choose)
     ListView mListView;
@@ -95,6 +98,8 @@ public class TomatoFinishPopupWindow extends PopupWindow {
             CommandRunner.getRunner().runCommand(new ICommand() {
                 @Override
                 public void execute() {
+                    LogUtil.d(TAG, "candyChoose  execute " + candy);
+                    candy.addTomato();
                     mCandyData.updateCandy(candy);
                     Calendar calendar = Calendar.getInstance();
                     mTomatoData.insertTomato(calendar.get(Calendar.YEAR),
