@@ -54,7 +54,7 @@ public class TomatoFragment extends BaseFragment implements IStatisticsView{
         ButterKnife.bind(this, view);
         int month = Calendar.getInstance().get(Calendar.MONTH);
         int year = Calendar.getInstance().get(Calendar.YEAR);
-        mPresenter.getMouthTomato(year, month);
+        mPresenter.getMonthTomato(year, month);
         return  view;
     }
 

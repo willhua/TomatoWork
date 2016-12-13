@@ -4,7 +4,10 @@ import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 
+import com.willhua.tomatowork.core.CommandRunner;
+import com.willhua.tomatowork.core.ICommand;
 import com.willhua.tomatowork.modle.entity.Candy;
+import com.willhua.tomatowork.utils.LogUtil;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -14,6 +17,8 @@ import java.util.List;
  */
 
 public class DbMaster {
+
+    private static final String TAG = "DbMaster";
 
     private TomatoDbOpenHelper mHelper;
     private List<IObserver> mObservers;
@@ -55,20 +60,24 @@ public class DbMaster {
         }
     }
 
-    private void notifyObservers(List<Candy> candies, int type){
+    private void notifyObservers(String table){
         for(IObserver observer : mObservers){
-            observer.onDataChanged(candies, type);
+            LogUtil.d(TAG, "notify:" + observer);
+            observer.onDataChanged(table);
         }
     }
 
 
-
     int delete(String table, String whereClause, String[] whereArgs) {
-        return mHelper.getWritableDatabase().delete(table, whereClause, whereArgs);
+        int cnt =  mHelper.getWritableDatabase().delete(table, whereClause, whereArgs);
+        notifyObservers(table);
+        return cnt;
     }
 
     long insert(String table, String nullColumnHack, ContentValues values) {
-        return mHelper.getWritableDatabase().insert(table, nullColumnHack, values);
+        long id = mHelper.getWritableDatabase().insert(table, nullColumnHack, values);
+        notifyObservers(table);
+        return id;
     }
 
     Cursor query(String table, String[] columns, String selection, String[] selectionArgs, String groupBy, String having, String orderBy) {
@@ -76,6 +85,8 @@ public class DbMaster {
     }
 
     int update(String table, ContentValues values, String whereClause, String[] whereArgs) {
-        return mHelper.getWritableDatabase().update(table, values, whereClause, whereArgs);
+        int cnt = mHelper.getWritableDatabase().update(table, values, whereClause, whereArgs);
+        notifyObservers(table);
+        return cnt;
     }
 }

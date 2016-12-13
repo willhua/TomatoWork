@@ -8,6 +8,7 @@ import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.ListView;
 import android.widget.PopupWindow;
+import android.widget.Toast;
 
 import com.willhua.tomatowork.R;
 import com.willhua.tomatowork.core.CommandRunner;
@@ -79,7 +80,11 @@ public class TomatoFinishPopupWindow extends PopupWindow {
         mBtnOk.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                candyChoose((Candy) mListView.getSelectedItem());
+                Candy candy = (Candy) mListView.getSelectedItem();
+                if(candy == null){
+                    candy = (Candy) mListView.getItemAtPosition(0);
+                }
+                candyChoose(candy);
                 dismiss();
             }
         });
@@ -87,7 +92,8 @@ public class TomatoFinishPopupWindow extends PopupWindow {
         mBtnCancle.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                candyChoose((Candy) mListView.getItemAtPosition(0));
+                //candyChoose((Candy) mListView.getItemAtPosition(0));
+                Toast.makeText(mBtnCancle.getContext(), "a tomato is discard.", Toast.LENGTH_SHORT).show();
                 dismiss();
             }
         });

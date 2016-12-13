@@ -12,5 +12,10 @@ public interface IObserver {
     int TYPE_INSERT = 0;
     int TYPE_UPDATE = 1;
     int TYPE_DELETE = 2;
-    void onDataChanged(List<Candy> candies, int type);
+
+    /**
+     * you should NOT do time-consuming during thr thread of this callback
+     * @param table
+     */
+    void onDataChanged(String table);
 }

@@ -63,6 +63,12 @@ public class CandyListFragment extends BaseFragment implements ICandyListView {
     }
 
     @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        mCandyPresenter.onViewDestory();
+    }
+
+    @Override
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
     }
@@ -72,6 +78,7 @@ public class CandyListFragment extends BaseFragment implements ICandyListView {
         super.onCreateView(inflater, container, savedInstanceState);
         View view = inflater.inflate(R.layout.item_list, null);
         ButterKnife.bind(this, view);
+        mCandyPresenter.onViewCreate();
         mCandyPresenter.showUnfinishedCandies();
         return view;
     }

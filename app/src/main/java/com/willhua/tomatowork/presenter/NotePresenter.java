@@ -2,6 +2,7 @@ package com.willhua.tomatowork.presenter;
 
 import com.willhua.tomatowork.core.CommandRunner;
 import com.willhua.tomatowork.core.ICommand;
+import com.willhua.tomatowork.modle.data.IObserver;
 import com.willhua.tomatowork.modle.data.idata.IModleNote;
 import com.willhua.tomatowork.modle.data.NoteData;
 import com.willhua.tomatowork.modle.entity.Note;
@@ -14,7 +15,7 @@ import java.util.List;
  * Created by willhua on 2016-11-17.
  */
 
-public class NotePresenter {
+public class NotePresenter implements IPresenter{
     private static final String TAG = "NotePresenter";
     private IModleNote mModleNote;
     private INoteView mView;
@@ -58,5 +59,30 @@ public class NotePresenter {
         if(note != null){
             mModleNote.deleteNote(note);
         }
+    }
+
+    @Override
+    public void onViewCreate() {
+        mModleNote.registerOberver(mObserver);
+    }
+
+    @Override
+    public void onViewResume() {
+    }
+
+    private IObserver mObserver = new IObserver() {
+        @Override
+        public void onDataChanged(String table) {
+            getNotes();
+        }
+    };
+
+    @Override
+    public void onViewPause() {
+    }
+
+    @Override
+    public void onViewDestory() {
+        mModleNote.unregisterObserver();
     }
 }

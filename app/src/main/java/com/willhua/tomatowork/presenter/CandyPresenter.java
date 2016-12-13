@@ -2,6 +2,7 @@ package com.willhua.tomatowork.presenter;
 
 import com.willhua.tomatowork.core.CommandRunner;
 import com.willhua.tomatowork.core.ICommand;
+import com.willhua.tomatowork.modle.data.IObserver;
 import com.willhua.tomatowork.modle.data.idata.IModleCandy;
 import com.willhua.tomatowork.modle.data.CandyData;
 import com.willhua.tomatowork.modle.entity.Candy;
@@ -14,7 +15,7 @@ import java.util.List;
  * Created by willhua on 2016-11-17.
  */
 
-public class CandyPresenter {
+public class CandyPresenter implements IPresenter{
     private static final String TAG = "CandyPresenter";
     private ICandyListView mView;
     private IModleCandy mModleCandy;
@@ -75,5 +76,32 @@ public class CandyPresenter {
 
             }
         });
+    }
+
+    @Override
+    public void onViewCreate() {
+        LogUtil.d(TAG, "register");
+        mModleCandy.registerOberver(mObserver);
+    }
+
+    @Override
+    public void onViewResume() {
+    }
+
+    private IObserver mObserver = new IObserver() {
+        @Override
+        public void onDataChanged(String table) {
+            LogUtil.d(TAG, "onDataChanged");
+            showUnfinishedCandies();
+        }
+    };
+
+    @Override
+    public void onViewPause() {
+    }
+
+    @Override
+    public void onViewDestory() {
+        mModleCandy.unregisterObserver();
     }
 }

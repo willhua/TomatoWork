@@ -68,7 +68,6 @@ public class NoteData extends AbstractModle implements IModleNote {
     public void deleteNote(Note note) {
         if(note != null){
             DbMaster.getMaster().delete(NoteTable.TABLE_NAME, NoteTable.KEY_ID + "=?", new String[]{Long.toString(note.getID())});
-
         }
     }
 }
