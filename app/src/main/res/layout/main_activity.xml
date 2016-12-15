@@ -16,6 +16,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
+            android:textSize="@dimen/textsize_large"
             android:text="@string/toolbar_text"/>
 
     </android.support.v7.widget.Toolbar>
@@ -24,7 +25,7 @@
         android:id="@+id/tabfragment"
         class="com.willhua.tomatowork.ui.fragment.TabFragment"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="@dimen/bottom_height"
         android:layout_alignParentBottom="true">
     </fragment>
 

@@ -66,6 +66,7 @@ public class MainActivity extends BaseActivity implements IView, TabFragment.Tab
     }
 
     private void initData() {
+        mTabText.setText(Utils.getTomatoTime(mTomatoTime));
         mViewPager.setAdapter(new FunctionPagerAdapter(this));
         mHandler = new Handler(mHandlerCallback);
         mContinueTime = FLAG_NOT_DURING_TOMATO;

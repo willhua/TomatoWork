@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <!-- tab  -->
-    <dimen name="bottom_height">120dp</dimen>
+    <dimen name="bottom_height">50dp</dimen>
     <dimen name="space_below_new_candy">10dp</dimen>
 
     <!-- candy item -->

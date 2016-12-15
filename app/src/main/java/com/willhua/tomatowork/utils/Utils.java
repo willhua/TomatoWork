@@ -38,10 +38,14 @@ public class Utils {
         return mStringBuilder.toString();
     }
 
-    public static String getFormatCandyInfo(Candy candy){
-        if(candy != null){
-            return mStringBuilder.delete(0, mStringBuilder.length()).append(candy.getTitle()).append(" (").append(candy.getCurrentTomato())
-                    .append("/").append(candy.getObjectiveTomato()).append(")").toString();
+    public static String getFormatCandyInfo(Candy candy) {
+        if (candy != null) {
+            if (candy.getObjectiveTomato() > 0) {
+                return mStringBuilder.delete(0, mStringBuilder.length()).append(candy.getTitle()).append(" (").append(candy.getCurrentTomato())
+                        .append("/").append(candy.getObjectiveTomato()).append(")").toString();
+            } else {
+                return candy.getTitle();
+            }
         }
         return "";
     }

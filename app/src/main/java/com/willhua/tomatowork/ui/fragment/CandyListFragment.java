@@ -3,7 +3,6 @@ package com.willhua.tomatowork.ui.fragment;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.design.widget.FloatingActionButton;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -14,7 +13,6 @@ import android.widget.PopupWindow;
 
 import com.willhua.tomatowork.R;
 import com.willhua.tomatowork.modle.entity.Candy;
-import com.willhua.tomatowork.core.Tomato;
 import com.willhua.tomatowork.presenter.CandyPresenter;
 import com.willhua.tomatowork.ui.iview.ICandyListView;
 import com.willhua.tomatowork.ui.adapter.CandyAdapter;
@@ -26,7 +24,6 @@ import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import butterknife.OnClick;
 import butterknife.OnTouch;
 
 /**
@@ -76,7 +73,7 @@ public class CandyListFragment extends BaseFragment implements ICandyListView {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         super.onCreateView(inflater, container, savedInstanceState);
-        View view = inflater.inflate(R.layout.item_list, null);
+        View view = inflater.inflate(R.layout.list_shower, null);
         ButterKnife.bind(this, view);
         mCandyPresenter.onViewCreate();
         mCandyPresenter.showUnfinishedCandies();

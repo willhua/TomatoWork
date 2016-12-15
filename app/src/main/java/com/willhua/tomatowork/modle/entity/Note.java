@@ -1,7 +1,5 @@
 package com.willhua.tomatowork.modle.entity;
 
-import com.willhua.tomatowork.utils.LogUtil;
-
 /**
  * Created by willhua on 2016-11-17.
  */
