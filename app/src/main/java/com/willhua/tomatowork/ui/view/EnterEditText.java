@@ -27,7 +27,9 @@ public class EnterEditText extends EditText {
     @Override
     protected void onTextChanged(CharSequence text, int start, int lengthBefore, int lengthAfter) {
         if (text.toString().contains("\n")) {
-            mEnterInputted.onEnterInputted(text.toString());
+            String str = text.toString().replaceAll("\n", "");
+            mEnterInputted.onEnterInputted(str);
+            super.onTextChanged(str, start, lengthBefore, lengthAfter);
             return;
         }
         super.onTextChanged(text, start, lengthBefore, lengthAfter);

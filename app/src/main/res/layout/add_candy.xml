@@ -1,13 +1,64 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
              android:layout_width="match_parent"
+              android:orientation="vertical"
              android:layout_height="match_parent">
-    <view
-        class="com.willhua.tomatowork.ui.view.AddCandyPopupWindow$CandyEditText"
-        android:id="@+id/et_add_candy"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:textSize="@dimen/textsize_small"
-        android:paddingLeft="@dimen/main_list_et_left_padding"/>
 
-</FrameLayout>
+    <RelativeLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <TextView
+            android:layout_alignParentLeft="true"
+            style="@style/ItemNameTextView"
+            android:text="@string/add_candy_object_tomato"/>
+        <com.willhua.tomatowork.ui.view.EnterEditText
+            android:id="@+id/eet_add_candy_objecttomato"
+            android:digits="0123456789"
+            style="@style/ItemNameTextView"
+            android:layout_alignParentRight="true"
+            android:gravity="right|center_vertical"/>
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <TextView
+            android:text="@string/add_candy_type"
+            android:layout_alignParentLeft="true"
+            style="@style/ItemNameTextView"/>
+        <com.willhua.tomatowork.ui.view.EnterEditText
+            android:id="@+id/eet_add_candy_type"
+            style="@style/ItemNameTextView"
+            android:digits="0123456789"
+            android:layout_alignParentRight="true"
+            android:gravity="right|center_vertical"/>
+    </RelativeLayout>
+
+    <com.willhua.tomatowork.ui.view.ProprityChooseView
+        android:id="@+id/pc_add_candy_proprity"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <Button
+            android:id="@+id/btn_add_candy_add"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentRight="true"
+            android:text="@string/btn_ok"/>
+
+        <Button
+            android:id="@+id/btn_add_candy_cancle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentLeft="true"
+            android:text="@string/btn_cancle"/>
+    </RelativeLayout>
+
+</LinearLayout>

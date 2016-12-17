@@ -10,7 +10,7 @@
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_alignParentRight="true"
-        android:text="@string/add_tomato_add"/>
+        android:text="@string/btn_ok"/>
 
     <Button
         android:id="@+id/btn_add_note_cancle"
@@ -18,7 +18,7 @@
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_alignParentLeft="true"
-        android:text="@string/add_tomato_cancle"/>
+        android:text="@string/btn_cancle"/>
 
     <EditText
         android:id="@+id/et_add_note_describe"

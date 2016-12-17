@@ -8,6 +8,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
+import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.PopupWindow;
 
@@ -33,9 +34,9 @@ import butterknife.OnTouch;
 /**
  * The fragment shown first
  */
-public class CandyListFragment extends BaseFragment implements ICandyListView {
+public class CandyPageFragment extends BaseFragment implements ICandyListView {
 
-    private static final String TAG = "CandyListFragment";
+    private static final String TAG = "CandyPageFragment";
     private CandyPresenter mCandyPresenter;
     @BindView(R.id.item_list) ListView mCandyListView;
     @BindView(R.id.new_item)
@@ -44,7 +45,7 @@ public class CandyListFragment extends BaseFragment implements ICandyListView {
     private List<Candy> mUnfinishedCandy = new ArrayList<>();
     private CandyAdapter mCandyAdapter;
 
-    public CandyListFragment() {
+    public CandyPageFragment() {
         super();
     }
 
@@ -85,7 +86,7 @@ public class CandyListFragment extends BaseFragment implements ICandyListView {
         if (view.getVisibility() == View.VISIBLE) {
             LogUtil.d(TAG, "new candy click");
             view.setVisibility(View.INVISIBLE);
-            Context context = CandyListFragment.this.getContext();
+            Context context = CandyPageFragment.this.getContext();
             final AddCandyPopupWindow pop = new AddCandyPopupWindow(context, mNewCandy);
             pop.setOnDismissListener(new PopupWindow.OnDismissListener() {
                 @Override
@@ -100,7 +101,7 @@ public class CandyListFragment extends BaseFragment implements ICandyListView {
                     mCandyListView.invalidate();
                 }
             });
-            pop.showAtLocation(CandyListFragment.this.getView().getRootView(), Gravity.NO_GRAVITY, 0, 0);
+            pop.showAtLocation(CandyPageFragment.this.getView().getRootView(), Gravity.NO_GRAVITY, 0, 0);
         }
         return true;
     }
@@ -129,5 +130,28 @@ public class CandyListFragment extends BaseFragment implements ICandyListView {
         mUnfinishedCandy = candies;
         mCandyListView.setAdapter(new CandyAdapter(mUnfinishedCandy, mCandyClick, getResources()));
         mCandyListView.invalidate();
+    }
+
+    public static class AddCandyFragment extends BaseFragment{
+        private ListView mListView;
+        private ListAdapter mListAdapter;
+
+        @Nullable
+        @Override
+        public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+            return super.onCreateView(inflater, container, savedInstanceState);
+        }
+
+        @Override
+        public void onDestroyView() {
+            super.onDestroyView();
+        }
+
+        public void setAdapter(ListAdapter listAdapter){
+            mListAdapter = listAdapter;
+            if(mListView != null){
+                mListView.setAdapter(listAdapter);
+            }
+        }
     }
 }

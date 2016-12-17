@@ -10,7 +10,6 @@ import android.view.ViewGroup;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ListView;
 
 import com.willhua.tomatowork.R;
 import com.willhua.tomatowork.modle.entity.Note;
@@ -29,8 +28,8 @@ import butterknife.OnClick;
  * Created by willhua on 2016-12-10.
  */
 
-public class NoteListFragment extends BaseFragment implements INoteView {
-    private static final String TAG = "NoteListFragment";
+public class NotePageFragment extends BaseFragment implements INoteView {
+    private static final String TAG = "NotePageFragment";
 
     @BindView(R.id.new_item)
     EditText mEtAddTitle;
@@ -42,7 +41,7 @@ public class NoteListFragment extends BaseFragment implements INoteView {
     private List<Note> mNoteList;
     private boolean mAddStatus = false;
 
-    public NoteListFragment() {
+    public NotePageFragment() {
         mNotePresenter = new NotePresenter(this);
     }
 
@@ -139,9 +138,9 @@ public class NoteListFragment extends BaseFragment implements INoteView {
         @BindView(R.id.btn_add_note_cancle)
         Button mBtnCancle;
 
-        NoteListFragment mNoteListFragment;
+        NotePageFragment mNoteListFragment;
 
-        void setNoteListFragment(NoteListFragment fragment) {
+        void setNoteListFragment(NotePageFragment fragment) {
             mNoteListFragment = fragment;
         }
 

@@ -29,4 +29,13 @@
         <item name="android:windowExitAnimation">@anim/tomato_finish_exit</item>
     </style>
 
+    <style name="ItemNameTextView">
+        <item name="android:gravity">center_vertical|left</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:padding">@dimen/item_tv_padding</item>
+        <item name="android:textSize">@dimen/textsize_middle</item>
+        <item name="android:textColor">@color/colorTomatoText</item>
+    </style>
+
 </resources>
