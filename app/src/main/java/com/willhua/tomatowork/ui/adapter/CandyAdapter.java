@@ -57,7 +57,6 @@ public class CandyAdapter extends BaseAdapter {
 
     @Override
     public int getCount() {
-        LogUtil.d(TAG, "GETCOUNT" + mCandyList.size());
         return mCandyList.size();
     }
 
@@ -73,7 +72,6 @@ public class CandyAdapter extends BaseAdapter {
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
-        LogUtil.d(TAG, "GETVIEW  " + position);
         ViewHolder vh = null;
         if(convertView != null){
             vh = (ViewHolder) convertView.getTag();

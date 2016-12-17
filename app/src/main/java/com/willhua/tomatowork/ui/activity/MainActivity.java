@@ -81,6 +81,26 @@ public class MainActivity extends BaseActivity implements IView, TabFragment.Tab
 
     private void initView() {
         mToolbar.inflateMenu(R.menu.menu_main);
+        mViewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+            @Override
+            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+
+            }
+
+            @Override
+            public void onPageSelected(int position) {
+                if(position != Constants.POSITOIN_CANDY){
+                    mFabStart.setVisibility(View.INVISIBLE);
+                }else {
+                    mFabStart.setVisibility(View.VISIBLE);
+                }
+            }
+
+            @Override
+            public void onPageScrollStateChanged(int state) {
+
+            }
+        });
     }
 
     @Override

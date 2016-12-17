@@ -23,7 +23,7 @@ public class NoteData extends AbstractModle implements IModleNote {
 
     @Override
     public List<Note> getNote() {
-        Cursor cursor = DbMaster.getMaster().query(NoteTable.TABLE_NAME,mColoumns, null, null, null, null, null );
+        Cursor cursor = DbMaster.getMaster().query(NoteTable.TABLE_NAME,mColoumns, null, null, null, null, NoteTable.KEY_TIME + " DESC " );
         int title = cursor.getColumnIndex(NoteTable.KEY_TITLE);
         int describe = cursor.getColumnIndex(NoteTable.KEY_DESCRIBE);
         int priorty = cursor.getColumnIndex(NoteTable.KEY_PRIORITY);
@@ -47,6 +47,8 @@ public class NoteData extends AbstractModle implements IModleNote {
             values.put(NoteTable.KEY_DESCRIBE, note.getDescribe());
             values.put(NoteTable.KEY_PRIORITY, note.getPriority());
             values.put(NoteTable.KEY_TYPE, note.getType());
+            values.put(NoteTable.KEY_TIME, System.currentTimeMillis());
+            LogUtil.d(TAG, "inser note " + note.getTitle());
             long id = DbMaster.getMaster().insert(NoteTable.TABLE_NAME, null, values);
             note.setID(id);
         }

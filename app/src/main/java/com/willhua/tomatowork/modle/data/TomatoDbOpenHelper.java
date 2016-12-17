@@ -22,6 +22,7 @@ class TomatoDbOpenHelper extends SQLiteOpenHelper {
             + NoteTable.KEY_DESCRIBE + ", "
             + NoteTable.KEY_TYPE + " integer, "
             + NoteTable.KEY_TITLE + ", "
+            + NoteTable.KEY_TIME + " long , "
             + NoteTable.KEY_PRIORITY + " integer )";
 
 

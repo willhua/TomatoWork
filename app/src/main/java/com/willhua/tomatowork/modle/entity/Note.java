@@ -17,11 +17,11 @@ public class Note extends BasicSeed{
         this(-1, title, describe, priority);
     }
 
-    public Note(long id, String title, String describe, int priority){
+    public Note(long id, String title, String describe, long time){
         mID = id;
         mTitle = title;
         mDescribe = describe;
-        mPriority = priority;
+        mTime = time;
     }
 
     public void setDescribe(String describe){
