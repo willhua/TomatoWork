@@ -34,6 +34,7 @@ public class ListViewFragment extends BaseFragment {
 
     @Override
     public void onDestroyView() {
+        mListAdapter = null;
         super.onDestroyView();
     }
 

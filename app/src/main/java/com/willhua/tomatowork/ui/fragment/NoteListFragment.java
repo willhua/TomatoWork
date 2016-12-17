@@ -99,10 +99,11 @@ public class NoteListFragment extends BaseFragment implements INoteView {
     }
 
     private void changView(boolean showAddView) {
-        LogUtil.d(TAG, "changview  " + showAddView);
         FragmentTransaction ft = getActivity().getSupportFragmentManager().beginTransaction();
         ft.setCustomAnimations(R.anim.add_item_up, R.anim.add_item_down);
         if (showAddView) {
+            InputMethodManager imm = (InputMethodManager) mEtAddTitle.getContext().getSystemService(Context.INPUT_METHOD_SERVICE);
+            imm.showSoftInput(mEtAddTitle, 0);
             AddNoteFragment addNoteFragment = new AddNoteFragment();
             addNoteFragment.setNoteListFragment(this);
             ft.replace(R.id.shower_container, addNoteFragment);
@@ -110,25 +111,21 @@ public class NoteListFragment extends BaseFragment implements INoteView {
             mEtAddTitle.setFocusableInTouchMode(true);
             mEtAddTitle.requestFocus();
             mEtAddTitle.setText("");
-            mEtAddTitle.setHint(R.string.create_new_note);
-            InputMethodManager imm = (InputMethodManager) mEtAddTitle.getContext().getSystemService(Context.INPUT_METHOD_SERVICE);
-            imm.hideSoftInputFromInputMethod(mEtAddTitle.getWindowToken(), 0);
-            mAddStatus = false;
+            mEtAddTitle.setHint(R.string.add_note_title);
         } else {
+            InputMethodManager imm = (InputMethodManager) mEtAddTitle.getContext().getSystemService(Context.INPUT_METHOD_SERVICE);
+            imm.hideSoftInputFromWindow(mEtAddTitle.getWindowToken(), 0);
             if (mListViewFragment == null) {
                 LogUtil.d(TAG, "mListViewFragment  null  ");
-
                 mListViewFragment = new ListViewFragment();
             }
             ft.replace(R.id.shower_container, mListViewFragment);
             mEtAddTitle.setFocusable(false);
             mEtAddTitle.setFocusableInTouchMode(false);
             mEtAddTitle.setText("");
-            mEtAddTitle.setHint(R.string.add_note_title);
-            InputMethodManager imm = (InputMethodManager) mEtAddTitle.getContext().getSystemService(Context.INPUT_METHOD_SERVICE);
-            imm.showSoftInput(mEtAddTitle, 0);
-            mAddStatus = true;
+            mEtAddTitle.setHint(R.string.create_new_note);
         }
+        mAddStatus = showAddView;
         ft.commit();
     }
 
