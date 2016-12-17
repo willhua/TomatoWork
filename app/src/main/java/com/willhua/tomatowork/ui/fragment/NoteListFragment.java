@@ -3,6 +3,7 @@ package com.willhua.tomatowork.ui.fragment;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v4.app.FragmentTransaction;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -33,17 +34,12 @@ public class NoteListFragment extends BaseFragment implements INoteView {
 
     @BindView(R.id.new_item)
     EditText mEtAddTitle;
-    @BindView(R.id.item_list)
-    ListView mListView;
     @BindView(R.id.show_panel)
     ViewGroup mRootContainer;
 
+    private ListViewFragment mListViewFragment;
     private NotePresenter mNotePresenter;
     private List<Note> mNoteList;
-    private View mAddView;
-    private EditText mEtAddDescribe;
-    private Button mBtnOK;
-    private Button mBtnCancle;
     private boolean mAddStatus = false;
 
     public NoteListFragment() {
@@ -71,6 +67,10 @@ public class NoteListFragment extends BaseFragment implements INoteView {
         mEtAddTitle.setHint(R.string.create_new_note);
         mNotePresenter.getNotes();
         mNotePresenter.onViewCreate();
+        FragmentTransaction ft = getActivity().getSupportFragmentManager().beginTransaction();
+        mListViewFragment = new ListViewFragment();
+        ft.add(R.id.shower_container, mListViewFragment);
+        ft.commit();
         return view;
     }
 
@@ -88,58 +88,95 @@ public class NoteListFragment extends BaseFragment implements INoteView {
     public void onGetNote(List<Note> notes) {
         LogUtil.d(TAG, "onGetNote  " + notes.size());
         mNoteList = notes;
-        mListView.setAdapter(new NoteAdapter(mNoteList));
-        mListView.invalidate();
+        mListViewFragment.setAdapter(new NoteAdapter(mNoteList));
     }
 
     @OnClick(R.id.new_item)
     public void showAddView(View view) {
         if (!mAddStatus) {
-            changView();
+            changView(true);
         }
     }
 
-    private void initAddView(){
-        mAddView = LayoutInflater.from(getContext()).inflate(R.layout.add_note, null);
-        mBtnOK = (Button)mAddView.findViewById(R.id.btn_add_note_add);
-        mBtnCancle = (Button)mAddView.findViewById(R.id.btn_add_note_cancle);
-        mEtAddDescribe = (EditText)mAddView.findViewById(R.id.et_add_note_describe);
-        mBtnOK.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                mNotePresenter.addNote(new Note(mEtAddTitle.getText().toString(), mEtAddDescribe.getText().toString()));
-                changView();
-            }
-        });
-        mBtnCancle.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                changView();
-            }
-        });
-    }
-
-    private void changView() {
-        if (mAddStatus) {
-            mRootContainer.removeView(mAddView);
-            mRootContainer.addView(mListView);
-            mEtAddTitle.setFocusable(false);
-            mEtAddTitle.setFocusableInTouchMode(false);
-            mEtAddTitle.setText("");
-        } else {
-            if (mAddView == null) {
-                initAddView();
-            }
-            mEtAddDescribe.setText("");
-            mRootContainer.removeView(mListView);
-            mRootContainer.addView(mAddView);
+    private void changView(boolean showAddView) {
+        LogUtil.d(TAG, "changview  " + showAddView);
+        FragmentTransaction ft = getActivity().getSupportFragmentManager().beginTransaction();
+        ft.setCustomAnimations(R.anim.add_item_up, R.anim.add_item_down);
+        if (showAddView) {
+            AddNoteFragment addNoteFragment = new AddNoteFragment();
+            addNoteFragment.setNoteListFragment(this);
+            ft.replace(R.id.shower_container, addNoteFragment);
             mEtAddTitle.setFocusable(true);
             mEtAddTitle.setFocusableInTouchMode(true);
             mEtAddTitle.requestFocus();
+            mEtAddTitle.setText("");
+            mEtAddTitle.setHint(R.string.create_new_note);
+            InputMethodManager imm = (InputMethodManager) mEtAddTitle.getContext().getSystemService(Context.INPUT_METHOD_SERVICE);
+            imm.hideSoftInputFromInputMethod(mEtAddTitle.getWindowToken(), 0);
+            mAddStatus = false;
+        } else {
+            if (mListViewFragment == null) {
+                LogUtil.d(TAG, "mListViewFragment  null  ");
+
+                mListViewFragment = new ListViewFragment();
+            }
+            ft.replace(R.id.shower_container, mListViewFragment);
+            mEtAddTitle.setFocusable(false);
+            mEtAddTitle.setFocusableInTouchMode(false);
+            mEtAddTitle.setText("");
+            mEtAddTitle.setHint(R.string.add_note_title);
+            InputMethodManager imm = (InputMethodManager) mEtAddTitle.getContext().getSystemService(Context.INPUT_METHOD_SERVICE);
+            imm.showSoftInput(mEtAddTitle, 0);
+            mAddStatus = true;
         }
-        mAddStatus = !mAddStatus;
-        InputMethodManager imm = (InputMethodManager) mEtAddTitle.getContext().getSystemService(Context.INPUT_METHOD_SERVICE);
-        imm.toggleSoftInput(0, InputMethodManager.HIDE_NOT_ALWAYS);
+        ft.commit();
+    }
+
+
+    public static class AddNoteFragment extends BaseFragment {
+
+        @BindView(R.id.et_add_note_describe)
+        EditText mEtDescribe;
+        @BindView(R.id.btn_add_note_add)
+        Button mBtnAdd;
+        @BindView(R.id.btn_add_note_cancle)
+        Button mBtnCancle;
+
+        NoteListFragment mNoteListFragment;
+
+        void setNoteListFragment(NoteListFragment fragment) {
+            mNoteListFragment = fragment;
+        }
+
+        @Nullable
+        @Override
+        public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+            super.onCreateView(inflater, container, savedInstanceState);
+            View view = inflater.inflate(R.layout.add_note, null);
+            ButterKnife.bind(this, view);
+            return view;
+        }
+
+        @Override
+        public void onDestroyView() {
+            super.onDestroyView();
+        }
+
+
+        @OnClick(R.id.btn_add_note_add)
+        public void onAdd(View v) {
+            String title = mNoteListFragment.mEtAddTitle.getText().toString();
+            String des = mEtDescribe.getText().toString();
+            if (title.length() != 0) {
+                mNoteListFragment.mNotePresenter.addNote(new Note(title, des));
+            }
+            mNoteListFragment.changView(false);
+        }
+
+        @OnClick(R.id.btn_add_note_cancle)
+        public void onCancle(View v) {
+            mNoteListFragment.changView(false);
+        }
     }
 
 

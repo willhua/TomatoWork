@@ -8,16 +8,17 @@
     <string name="tab_statisticd">统计</string>
     <string name="tab_user">我的</string>
     <string name="create_new_candy">来一个新鲜番茄吧</string>
-    <string name="create_new_note">我想记点新东西</string>
 
     <!-- Tomato finish popupwindow  -->
     <string name="tomato_finish_ok">确定</string>
     <string name="tomato_finish_cancle">取消</string>
 
     <!-- add note -->
+    <string name="create_new_note">我想记点新东西</string>
     <string name="add_note_title">写下笔记标题</string>
     <string name="add_note_describe">写下笔记内容</string>
     <string name="add_tomato_add">添加</string>
     <string name="add_tomato_cancle">取消</string>
+
 
 </resources>
