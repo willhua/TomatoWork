@@ -169,6 +169,14 @@ public class MainActivity extends BaseActivity implements IView, TabFragment.Tab
         }
     };
 
+    public void requestHideFab(boolean hide){
+        if(hide){
+            mFabStart.setVisibility(View.INVISIBLE);
+        }else{
+            mFabStart.setVisibility(View.VISIBLE);
+        }
+    }
+
     @OnClick(R.id.fab_start)
     public void startTomato(View view) {
         LogUtil.d(TAG, "fab click");

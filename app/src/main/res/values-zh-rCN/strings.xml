@@ -25,6 +25,7 @@
     <string name="add_candy_title">输入目标名</string>
     <string name="add_candy_object_tomato">计划番茄数</string>
     <string name="add_candy_type">目标类型</string>
+    <string name="add_candy_priority">目标优先级</string>
 
 
 

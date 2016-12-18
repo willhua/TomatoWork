@@ -25,10 +25,12 @@
             android:layout_width="match_parent"
             android:layout_height="@dimen/space_below_new_candy"/>
 
-        <ListView
-            android:id="@+id/item_list"
+        <FrameLayout
+            android:id="@+id/candy_shower_container"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"></ListView>
+            android:layout_height="wrap_content">
+
+        </FrameLayout>
     </LinearLayout>
 </FrameLayout>
 

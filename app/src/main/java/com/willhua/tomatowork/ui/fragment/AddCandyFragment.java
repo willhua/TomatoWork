@@ -8,11 +8,13 @@ import android.view.ViewGroup;
 import android.widget.Button;
 
 import com.willhua.tomatowork.R;
+import com.willhua.tomatowork.modle.entity.Candy;
+import com.willhua.tomatowork.ui.view.ColorChooserView;
 import com.willhua.tomatowork.ui.view.EnterEditText;
-import com.willhua.tomatowork.ui.view.ProprityChooseView;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 
 /**
  * Created by willhua on 2016/12/18.
@@ -26,7 +28,7 @@ public class AddCandyFragment extends BaseFragment {
     @BindView(R.id.eet_add_candy_type)
     EnterEditText mEetCandyType;
     @BindView(R.id.pc_add_candy_proprity)
-    ProprityChooseView mPcvPriority;
+    ColorChooserView mCcvPriority;
     @BindView(R.id.btn_add_candy_add)
     Button mBtnAdd;
     @BindView(R.id.btn_add_candy_cancle)
@@ -34,12 +36,15 @@ public class AddCandyFragment extends BaseFragment {
 
     private CandyPageFragment mCandyPageFragment;
 
-    void setCandyPageFragment(CandyPageFragment fragment){
+    public AddCandyFragment(){
+        super();
+    }
+
+    void setCandyPageFragment(CandyPageFragment fragment) {
         mCandyPageFragment = fragment;
     }
 
 
-    @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         super.onCreateView(inflater, container, savedInstanceState);
@@ -49,7 +54,40 @@ public class AddCandyFragment extends BaseFragment {
     }
 
     @Override
+    public void onResume() {
+        super.onResume();
+        if (mCandyPageFragment != null) {
+            mCandyPageFragment.mNewCandy.setHint(R.string.add_candy_title);
+        }
+    }
+
+    @Override
     public void onDestroyView() {
         super.onDestroyView();
+    }
+
+    @OnClick(R.id.btn_add_candy_add)
+    public void add(View v) {
+        if (mCandyPageFragment != null) {
+            String title = mCandyPageFragment.mNewCandy.getText().toString();
+            int priority = mCcvPriority.getChoose();
+            int object = Integer.valueOf(mEetObjectTomato.getText().toString());
+            int type = Integer.valueOf(mEetObjectTomato.getText().toString());
+            Candy candy = new Candy(title);
+            candy.setObjectiveTomato(object);
+            candy.setPriority(priority);
+            candy.setType(type);
+            mCandyPageFragment.addCandy(candy);
+            mCandyPageFragment.changView(false);
+            mCandyPageFragment.mNewCandy.setHint(R.string.add_candy_new);
+        }
+    }
+
+    @OnClick(R.id.btn_add_candy_cancle)
+    public void cancle(View v) {
+        if (mCandyPageFragment != null) {
+            mCandyPageFragment.changView(false);
+            mCandyPageFragment.mNewCandy.setHint(R.string.add_candy_new);
+        }
     }
 }

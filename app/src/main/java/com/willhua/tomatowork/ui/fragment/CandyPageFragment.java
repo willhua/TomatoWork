@@ -3,10 +3,12 @@ package com.willhua.tomatowork.ui.fragment;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v4.app.FragmentTransaction;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.ListAdapter;
 import android.widget.ListView;
@@ -15,9 +17,9 @@ import android.widget.PopupWindow;
 import com.willhua.tomatowork.R;
 import com.willhua.tomatowork.modle.entity.Candy;
 import com.willhua.tomatowork.presenter.CandyPresenter;
+import com.willhua.tomatowork.ui.activity.MainActivity;
 import com.willhua.tomatowork.ui.iview.ICandyListView;
 import com.willhua.tomatowork.ui.adapter.CandyAdapter;
-import com.willhua.tomatowork.ui.view.AddCandyPopupWindow;
 import com.willhua.tomatowork.utils.LogUtil;
 
 import java.util.ArrayList;
@@ -25,6 +27,7 @@ import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 import butterknife.OnTouch;
 
 /**
@@ -37,13 +40,14 @@ import butterknife.OnTouch;
 public class CandyPageFragment extends BaseFragment implements ICandyListView {
 
     private static final String TAG = "CandyPageFragment";
-    private CandyPresenter mCandyPresenter;
-    @BindView(R.id.item_list) ListView mCandyListView;
+
     @BindView(R.id.new_item)
     EditText mNewCandy;
 
-    private List<Candy> mUnfinishedCandy = new ArrayList<>();
+    private CandyPresenter mCandyPresenter;
     private CandyAdapter mCandyAdapter;
+    private boolean mAddStatus = false;
+    private ListViewFragment mListViewFragment;
 
     public CandyPageFragment() {
         super();
@@ -74,36 +78,50 @@ public class CandyPageFragment extends BaseFragment implements ICandyListView {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         super.onCreateView(inflater, container, savedInstanceState);
-        View view = inflater.inflate(R.layout.list_shower2, null);
+        View view = inflater.inflate(R.layout.candy_list_shower, null);
         ButterKnife.bind(this, view);
+        mListViewFragment = new ListViewFragment();
+        FragmentTransaction ft = getActivity().getSupportFragmentManager().beginTransaction();
+        ft.add(R.id.candy_shower_container, mListViewFragment);
+        ft.commit();
         mCandyPresenter.onViewCreate();
         mCandyPresenter.showUnfinishedCandies();
         return view;
     }
 
-    @OnTouch(R.id.new_item)
-    public boolean addNewCandy(final EditText view) {
-        if (view.getVisibility() == View.VISIBLE) {
-            LogUtil.d(TAG, "new candy click");
-            view.setVisibility(View.INVISIBLE);
-            Context context = CandyPageFragment.this.getContext();
-            final AddCandyPopupWindow pop = new AddCandyPopupWindow(context, mNewCandy);
-            pop.setOnDismissListener(new PopupWindow.OnDismissListener() {
-                @Override
-                public void onDismiss() {
-                    view.setVisibility(View.VISIBLE);
-                    Candy candy = new Candy(pop.getCandyTitle());
-                    mCandyPresenter.addCandy(candy);
-                    mUnfinishedCandy.add(0, candy);
-                    LogUtil.d(TAG, " ondisss mUnfinishedCandy " + mUnfinishedCandy.size());
-                    mCandyListView.invalidate();
-                    mCandyListView.setAdapter(new CandyAdapter(mUnfinishedCandy, mCandyClick, getResources()));
-                    mCandyListView.invalidate();
-                }
-            });
-            pop.showAtLocation(CandyPageFragment.this.getView().getRootView(), Gravity.NO_GRAVITY, 0, 0);
+    @OnClick(R.id.new_item)
+    public void addNewCandy(final EditText view) {
+        if(!mAddStatus){
+            changView(true);
         }
-        return true;
+    }
+
+    public void addCandy(Candy candy){
+        mCandyPresenter.addCandy(candy);
+    }
+
+    public void changView(boolean addView){
+        FragmentTransaction ft = getActivity().getSupportFragmentManager().beginTransaction();
+        ft.setCustomAnimations(R.anim.add_item_up, R.anim.add_item_down);
+        if(addView){
+            ((MainActivity)getActivity()).requestHideFab(true);
+            AddCandyFragment addCandyFragment = new AddCandyFragment();
+            addCandyFragment.setCandyPageFragment(this);
+            ft.replace(R.id.candy_shower_container, addCandyFragment);
+            InputMethodManager imm = (InputMethodManager)getContext().getSystemService(Context.INPUT_METHOD_SERVICE);
+            imm.showSoftInput(mNewCandy, 0);
+        }else{
+            ((MainActivity)getActivity()).requestHideFab(false);
+            if(mListViewFragment == null){
+                mListViewFragment = new ListViewFragment();
+                mListViewFragment.setAdapter(mCandyAdapter);
+            }
+            ft.replace(R.id.candy_shower_container, mListViewFragment);
+            InputMethodManager imm = (InputMethodManager)getContext().getSystemService(Context.INPUT_METHOD_SERVICE);
+            imm.hideSoftInputFromWindow(mNewCandy.getWindowToken(), 0);
+        }
+        mAddStatus = addView;
+        ft.commit();
     }
 
     private CandyAdapter.CandyClick mCandyClick = new CandyAdapter.CandyClick() {
@@ -127,31 +145,9 @@ public class CandyPageFragment extends BaseFragment implements ICandyListView {
     @Override
     public void onUnfinishedCandyQueried(List<Candy> candies) {
         LogUtil.d(TAG, "onUnfinishedCandyQueried size:" + candies.size());
-        mUnfinishedCandy = candies;
-        mCandyListView.setAdapter(new CandyAdapter(mUnfinishedCandy, mCandyClick, getResources()));
-        mCandyListView.invalidate();
-    }
-
-    public static class AddCandyFragment extends BaseFragment{
-        private ListView mListView;
-        private ListAdapter mListAdapter;
-
-        @Nullable
-        @Override
-        public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-            return super.onCreateView(inflater, container, savedInstanceState);
-        }
-
-        @Override
-        public void onDestroyView() {
-            super.onDestroyView();
-        }
-
-        public void setAdapter(ListAdapter listAdapter){
-            mListAdapter = listAdapter;
-            if(mListView != null){
-                mListView.setAdapter(listAdapter);
-            }
+        mCandyAdapter = new CandyAdapter(candies, mCandyClick, getResources());
+        if(mListViewFragment != null){
+            mListViewFragment.setAdapter(mCandyAdapter);
         }
     }
 }

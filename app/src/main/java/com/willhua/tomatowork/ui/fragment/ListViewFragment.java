@@ -19,7 +19,6 @@ public class ListViewFragment extends BaseFragment {
     private ListView mListView;
     private ListAdapter mListAdapter;
 
-    @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         super.onCreateView(inflater, container, savedInstanceState);

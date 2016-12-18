@@ -23,4 +23,7 @@
     <dimen name="main_list_et_left_padding">30dp</dimen>
     <dimen name="main_list_fab_margin">16dp</dimen>
 
+    <!--   add candy -->
+    <dimen name="add_candy_et_width">120dp</dimen>
+
 </resources>
