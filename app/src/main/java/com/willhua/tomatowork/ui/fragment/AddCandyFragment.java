@@ -82,7 +82,7 @@ public class AddCandyFragment extends BaseFragment {
                 candy.setType(type);
             } catch (Exception e) {
                 candy = null;
-                Toast.makeText(getContext(), R.string.add_input_wrong, Toast.LENGTH_SHORT).show();
+                Toast.makeText(getContext(), R.string.input_wrong, Toast.LENGTH_SHORT).show();
                 return;
             }
             if (candy != null) {

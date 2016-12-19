@@ -9,7 +9,7 @@
     <string name="tab_user">我的</string>
     <string name="btn_ok">确定</string>
     <string name="btn_cancle">取消</string>
-    <string name="add_input_wrong">请输入完整的信息</string>
+    <string name="input_wrong">请输入完整的合理值</string>
 
 
     <!-- Tomato finish popupwindow  -->
@@ -28,6 +28,9 @@
     <string name="add_candy_object_tomato">计划番茄数</string>
     <string name="add_candy_type">目标类型</string>
     <string name="add_candy_priority">目标优先级</string>
+
+    <!--  user set -->
+    <string name="user_set_tomato_time">番茄时长</string>
 
 
 

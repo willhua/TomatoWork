@@ -166,7 +166,7 @@ public class NotePageFragment extends BaseFragment implements INoteView {
             if (title.length() != 0) {
                 mNoteListFragment.mNotePresenter.addNote(new Note(title, des));
             }else{
-                Toast.makeText(getContext(), R.string.add_input_wrong, Toast.LENGTH_SHORT).show();
+                Toast.makeText(getContext(), R.string.input_wrong, Toast.LENGTH_SHORT).show();
                 return;
             }
             mNoteListFragment.changView(false);

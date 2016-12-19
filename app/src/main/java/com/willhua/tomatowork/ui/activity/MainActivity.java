@@ -1,5 +1,6 @@
 package com.willhua.tomatowork.ui.activity;
 
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -66,6 +67,8 @@ public class MainActivity extends BaseActivity implements IView, TabFragment.Tab
     }
 
     private void initData() {
+        SharedPreferences pref = getPreferences(MODE_PRIVATE);
+        mTomatoTime = pref.getInt(Constants.PREF_TOMATO_TIME, 25 * Constants.MIN_TO_SECONDS);
         mTabText.setText(Utils.getTomatoTime(mTomatoTime));
         mViewPager.setAdapter(new FunctionPagerAdapter(this));
         mHandler = new Handler(mHandlerCallback);
