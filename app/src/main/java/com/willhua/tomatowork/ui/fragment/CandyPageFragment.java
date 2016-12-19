@@ -4,15 +4,11 @@ import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.FragmentTransaction;
-import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
-import android.widget.ListAdapter;
-import android.widget.ListView;
-import android.widget.PopupWindow;
 
 import com.willhua.tomatowork.R;
 import com.willhua.tomatowork.modle.entity.Candy;
@@ -22,13 +18,11 @@ import com.willhua.tomatowork.ui.iview.ICandyListView;
 import com.willhua.tomatowork.ui.adapter.CandyAdapter;
 import com.willhua.tomatowork.utils.LogUtil;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
-import butterknife.OnTouch;
 
 /**
  * Created by willhua on 2016/11/20.
@@ -42,11 +36,11 @@ public class CandyPageFragment extends BaseFragment implements ICandyListView {
     private static final String TAG = "CandyPageFragment";
 
     @BindView(R.id.new_item)
-    EditText mNewCandy;
+    EditText mEtAddCandy;
 
     private CandyPresenter mCandyPresenter;
     private CandyAdapter mCandyAdapter;
-    private boolean mAddStatus = false;
+    private static boolean mAddStatus = false;
     private ListViewFragment mListViewFragment;
 
     public CandyPageFragment() {
@@ -80,10 +74,11 @@ public class CandyPageFragment extends BaseFragment implements ICandyListView {
         super.onCreateView(inflater, container, savedInstanceState);
         View view = inflater.inflate(R.layout.candy_list_shower, null);
         ButterKnife.bind(this, view);
-        mListViewFragment = new ListViewFragment();
+/*        mListViewFragment = new ListViewFragment();
         FragmentTransaction ft = getActivity().getSupportFragmentManager().beginTransaction();
         ft.add(R.id.candy_shower_container, mListViewFragment);
-        ft.commit();
+        ft.commit();*/
+        changView(mAddStatus);
         mCandyPresenter.onViewCreate();
         mCandyPresenter.showUnfinishedCandies();
         return view;
@@ -91,34 +86,39 @@ public class CandyPageFragment extends BaseFragment implements ICandyListView {
 
     @OnClick(R.id.new_item)
     public void addNewCandy(final EditText view) {
-        if(!mAddStatus){
+        if (!mAddStatus) {
             changView(true);
         }
     }
 
-    public void addCandy(Candy candy){
+    public void addCandy(Candy candy) {
         mCandyPresenter.addCandy(candy);
     }
 
-    public void changView(boolean addView){
+    public void changView(boolean addView) {
         FragmentTransaction ft = getActivity().getSupportFragmentManager().beginTransaction();
         ft.setCustomAnimations(R.anim.add_item_up, R.anim.add_item_down);
-        if(addView){
-            ((MainActivity)getActivity()).requestHideFab(true);
+        if (addView) {
+            mEtAddCandy.setFocusable(true);
+            mEtAddCandy.setFocusableInTouchMode(true);
+            mEtAddCandy.requestFocus();
+            ((MainActivity) getActivity()).requestHideFab(true);
             AddCandyFragment addCandyFragment = new AddCandyFragment();
             addCandyFragment.setCandyPageFragment(this);
             ft.replace(R.id.candy_shower_container, addCandyFragment);
-            InputMethodManager imm = (InputMethodManager)getContext().getSystemService(Context.INPUT_METHOD_SERVICE);
-            imm.showSoftInput(mNewCandy, 0);
-        }else{
-            ((MainActivity)getActivity()).requestHideFab(false);
-            if(mListViewFragment == null){
+            InputMethodManager imm = (InputMethodManager) getContext().getSystemService(Context.INPUT_METHOD_SERVICE);
+            imm.showSoftInput(mEtAddCandy, 0);
+        } else {
+            mEtAddCandy.setFocusable(false);
+            mEtAddCandy.setFocusableInTouchMode(false);
+            ((MainActivity) getActivity()).requestHideFab(false);
+            if (mListViewFragment == null) {
                 mListViewFragment = new ListViewFragment();
-                mListViewFragment.setAdapter(mCandyAdapter);
             }
+            mListViewFragment.setAdapter(mCandyAdapter);
             ft.replace(R.id.candy_shower_container, mListViewFragment);
-            InputMethodManager imm = (InputMethodManager)getContext().getSystemService(Context.INPUT_METHOD_SERVICE);
-            imm.hideSoftInputFromWindow(mNewCandy.getWindowToken(), 0);
+            InputMethodManager imm = (InputMethodManager) getContext().getSystemService(Context.INPUT_METHOD_SERVICE);
+            imm.hideSoftInputFromWindow(mEtAddCandy.getWindowToken(), 0);
         }
         mAddStatus = addView;
         ft.commit();
@@ -146,7 +146,7 @@ public class CandyPageFragment extends BaseFragment implements ICandyListView {
     public void onUnfinishedCandyQueried(List<Candy> candies) {
         LogUtil.d(TAG, "onUnfinishedCandyQueried size:" + candies.size());
         mCandyAdapter = new CandyAdapter(candies, mCandyClick, getResources());
-        if(mListViewFragment != null){
+        if (mListViewFragment != null) {
             mListViewFragment.setAdapter(mCandyAdapter);
         }
     }

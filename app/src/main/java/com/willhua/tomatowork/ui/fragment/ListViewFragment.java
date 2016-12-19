@@ -8,6 +8,8 @@ import android.view.ViewGroup;
 import android.widget.ListAdapter;
 import android.widget.ListView;
 
+import com.willhua.tomatowork.utils.LogUtil;
+
 import butterknife.BindView;
 
 /**
@@ -38,8 +40,10 @@ public class ListViewFragment extends BaseFragment {
     }
 
     public void setAdapter(ListAdapter adapter) {
+        LogUtil.d("listframent", "setadapter  ");
         mListAdapter = adapter;
         if (mListView != null) {
+        LogUtil.d("listframent", "setadapter  " + adapter.getCount());
             mListView.setAdapter(adapter);
             mListView.invalidate();
         }

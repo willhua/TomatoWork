@@ -40,7 +40,7 @@ public class ColorChooserView extends View {
     private PointF mThrCenter = new PointF();
     private Paint mPaint;
 
-    private int mCurrentChoose = -1;
+    private int mCurrentChoose = 2;
 
     public ColorChooserView(Context context, AttributeSet attrs) {
         super(context, attrs);

@@ -10,6 +10,8 @@ import android.view.ViewGroup;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ListAdapter;
+import android.widget.Toast;
 
 import com.willhua.tomatowork.R;
 import com.willhua.tomatowork.modle.entity.Note;
@@ -38,8 +40,8 @@ public class NotePageFragment extends BaseFragment implements INoteView {
 
     private ListViewFragment mListViewFragment;
     private NotePresenter mNotePresenter;
-    private List<Note> mNoteList;
-    private boolean mAddStatus = false;
+    private ListAdapter mListAdapter;
+    private static boolean mAddStatus = false;
 
     public NotePageFragment() {
         mNotePresenter = new NotePresenter(this);
@@ -66,10 +68,7 @@ public class NotePageFragment extends BaseFragment implements INoteView {
         mEtAddTitle.setHint(R.string.create_new_note);
         mNotePresenter.getNotes();
         mNotePresenter.onViewCreate();
-        FragmentTransaction ft = getActivity().getSupportFragmentManager().beginTransaction();
-        mListViewFragment = new ListViewFragment();
-        ft.add(R.id.shower_container, mListViewFragment);
-        ft.commit();
+        changView(mAddStatus);
         return view;
     }
 
@@ -86,8 +85,8 @@ public class NotePageFragment extends BaseFragment implements INoteView {
     @Override
     public void onGetNote(List<Note> notes) {
         LogUtil.d(TAG, "onGetNote  " + notes.size());
-        mNoteList = notes;
-        mListViewFragment.setAdapter(new NoteAdapter(mNoteList));
+        mListAdapter = new NoteAdapter(notes);
+        mListViewFragment.setAdapter(mListAdapter);
     }
 
     @OnClick(R.id.new_item)
@@ -118,6 +117,7 @@ public class NotePageFragment extends BaseFragment implements INoteView {
                 LogUtil.d(TAG, "mListViewFragment  null  ");
                 mListViewFragment = new ListViewFragment();
             }
+            mListViewFragment.setAdapter(mListAdapter);
             ft.replace(R.id.shower_container, mListViewFragment);
             mEtAddTitle.setFocusable(false);
             mEtAddTitle.setFocusableInTouchMode(false);
@@ -165,6 +165,9 @@ public class NotePageFragment extends BaseFragment implements INoteView {
             String des = mEtDescribe.getText().toString();
             if (title.length() != 0) {
                 mNoteListFragment.mNotePresenter.addNote(new Note(title, des));
+            }else{
+                Toast.makeText(getContext(), R.string.add_input_wrong, Toast.LENGTH_SHORT).show();
+                return;
             }
             mNoteListFragment.changView(false);
         }

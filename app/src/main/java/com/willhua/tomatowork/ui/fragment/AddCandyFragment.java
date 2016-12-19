@@ -6,6 +6,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.Toast;
 
 import com.willhua.tomatowork.R;
 import com.willhua.tomatowork.modle.entity.Candy;
@@ -36,7 +37,7 @@ public class AddCandyFragment extends BaseFragment {
 
     private CandyPageFragment mCandyPageFragment;
 
-    public AddCandyFragment(){
+    public AddCandyFragment() {
         super();
     }
 
@@ -57,7 +58,7 @@ public class AddCandyFragment extends BaseFragment {
     public void onResume() {
         super.onResume();
         if (mCandyPageFragment != null) {
-            mCandyPageFragment.mNewCandy.setHint(R.string.add_candy_title);
+            mCandyPageFragment.mEtAddCandy.setHint(R.string.add_candy_title);
         }
     }
 
@@ -69,17 +70,26 @@ public class AddCandyFragment extends BaseFragment {
     @OnClick(R.id.btn_add_candy_add)
     public void add(View v) {
         if (mCandyPageFragment != null) {
-            String title = mCandyPageFragment.mNewCandy.getText().toString();
-            int priority = mCcvPriority.getChoose();
-            int object = Integer.valueOf(mEetObjectTomato.getText().toString());
-            int type = Integer.valueOf(mEetObjectTomato.getText().toString());
-            Candy candy = new Candy(title);
-            candy.setObjectiveTomato(object);
-            candy.setPriority(priority);
-            candy.setType(type);
-            mCandyPageFragment.addCandy(candy);
+            Candy candy = null;
+            try {
+                String title = mCandyPageFragment.mEtAddCandy.getText().toString();
+                int priority = mCcvPriority.getChoose();
+                int object = Integer.valueOf(mEetObjectTomato.getText().toString());
+                int type = Integer.valueOf(mEetObjectTomato.getText().toString());
+                candy = new Candy(title);
+                candy.setObjectiveTomato(object);
+                candy.setPriority(priority);
+                candy.setType(type);
+            } catch (Exception e) {
+                candy = null;
+                Toast.makeText(getContext(), R.string.add_input_wrong, Toast.LENGTH_SHORT).show();
+                return;
+            }
+            if (candy != null) {
+                mCandyPageFragment.addCandy(candy);
+            }
             mCandyPageFragment.changView(false);
-            mCandyPageFragment.mNewCandy.setHint(R.string.add_candy_new);
+            mCandyPageFragment.mEtAddCandy.setHint(R.string.add_candy_new);
         }
     }
 
@@ -87,7 +97,7 @@ public class AddCandyFragment extends BaseFragment {
     public void cancle(View v) {
         if (mCandyPageFragment != null) {
             mCandyPageFragment.changView(false);
-            mCandyPageFragment.mNewCandy.setHint(R.string.add_candy_new);
+            mCandyPageFragment.mEtAddCandy.setHint(R.string.add_candy_new);
         }
     }
 }
